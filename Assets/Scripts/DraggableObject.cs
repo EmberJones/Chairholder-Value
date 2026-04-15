@@ -27,17 +27,20 @@ public class DraggableObject : MonoBehaviour
         }
     }
 
+    // Called by PlayerController via SendMessage
     protected virtual void OnPickedUp()
     {
         _returning = false;
     }
 
+    // Called by PlayerController via SendMessage
     protected virtual void OnDropped()
     {
         if (returnToOriginOnDrop)
             _returning = true;
     }
 
+    // Override in subclass to trigger something when the return animation finishes
     protected virtual void OnReturnComplete() { }
 
     public Vector3 Origin => _origin;

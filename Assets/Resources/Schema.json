@@ -1,0 +1,106 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CVData",
+  "description": "Schema for a single applicant CV in the hiring game",
+  "type": "object",
+  "required": ["id", "meta", "personal", "application", "experience", "education", "skills"],
+  "properties": {
+
+        "id": {
+            "type": "string",
+      "description": "Unique identifier, e.g. 'cv_001'. Also used to name the file."
+        },
+
+    "meta": {
+            "type": "object",
+      "description": "Game logic data — never shown to the player directly",
+      "required": ["difficulty", "correct_decision", "decision_reason"],
+      "properties": {
+                "difficulty":         { "type": "string", "enum": ["easy", "medium", "hard"] },
+        "correct_decision":   { "type": "string", "enum": ["approve", "reject"] },
+        "decision_reason":    { "type": "string", "description": "Internal note explaining why this CV should be approved or rejected. Shown in post-round feedback." },
+        "red_flags":          { "type": "array",  "items": { "type": "string" }, "description": "Specific inconsistencies or disqualifiers the player should spot, e.g. 'employment gap 2019-2021', 'degree unverifiable'" },
+        "green_flags":        { "type": "array",  "items": { "type": "string" }, "description": "Specific strengths that support approval, e.g. '8 years relevant experience', 'matches all job requirements'" },
+        "photo_ref":          { "type": "string", "description": "Filename in Resources/Portraits/, e.g. 'portrait_01.png'. Can be null for no photo." }
+            }
+        },
+
+    "personal": {
+            "type": "object",
+      "required": ["full_name", "age", "nationality", "address"],
+      "properties": {
+                "full_name":   { "type": "string" },
+        "age":         { "type": "integer", "minimum": 16, "maximum": 80 },
+        "dob":         { "type": "string", "description": "Date of birth, format YYYY-MM-DD. Optional — but can conflict with age for a red flag." },
+        "nationality": { "type": "string" },
+        "address":     { "type": "string", "description": "Single line street address" },
+        "phone":       { "type": "string" },
+        "email":       { "type": "string" }
+            }
+        },
+
+    "application": {
+            "type": "object",
+      "required": ["position", "reference_number", "date_received"],
+      "properties": {
+                "position":          { "type": "string", "description": "Job title being applied for, e.g. 'Senior Accountant'" },
+        "department":        { "type": "string" },
+        "reference_number":  { "type": "string", "description": "Fax/application ref, e.g. 'APP-2031-0047'" },
+        "date_received":     { "type": "string", "description": "Format YYYY-MM-DD" },
+        "cover_note":        { "type": "string", "description": "One or two sentence cover note printed at the top of the CV. Optional." }
+            }
+        },
+
+    "experience": {
+            "type": "array",
+      "description": "Work history, most recent first",
+      "items": {
+                "type": "object",
+        "required": ["job_title", "company", "start_year", "end_year"],
+        "properties": {
+                    "job_title":    { "type": "string" },
+          "company":      { "type": "string" },
+          "start_year":   { "type": "integer" },
+          "end_year":     { "type": ["integer", "string"], "description": "Integer year or 'present'" },
+          "description":  { "type": "string", "description": "One sentence summary of responsibilities" }
+                }
+            }
+        },
+
+    "education": {
+            "type": "array",
+      "description": "Qualifications, most recent first",
+      "items": {
+                "type": "object",
+        "required": ["qualification", "institution", "year_completed"],
+        "properties": {
+                    "qualification":  { "type": "string", "description": "e.g. 'BSc Computer Science'" },
+          "institution":    { "type": "string" },
+          "year_completed": { "type": ["integer", "string"], "description": "Year or 'incomplete'" },
+          "grade":          { "type": "string", "description": "Optional — e.g. 'First Class', '68%', 'Pass'" }
+                }
+            }
+        },
+
+    "skills": {
+            "type": "array",
+      "description": "List of skill strings shown as a simple list on the CV",
+      "items": { "type": "string" }
+        },
+
+    "references": {
+            "type": "array",
+      "description": "Optional — one or two referees. Can be flagged as uncontactable for a red flag.",
+      "items": {
+                "type": "object",
+        "properties": {
+                    "name":         { "type": "string" },
+          "title":        { "type": "string" },
+          "company":      { "type": "string" },
+          "contactable":  { "type": "boolean", "description": "If false, GameManager can surface this as suspicious" }
+                }
+            }
+        }
+
+    }
+}
