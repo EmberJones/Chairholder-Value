@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
 
-public class MainMenuNav : MonoBehaviour
+public class PauseMenuNav : MonoBehaviour
 {
     [SerializeField] private GameObject SettingsCanvas;
-    [SerializeField] private string GameSceneName;
+    [SerializeField] private string MenuSceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,23 +13,28 @@ public class MainMenuNav : MonoBehaviour
 
     public void OnExitClicked()
     {
-        #if UNITY_EDITOR
-                // This stops play mode in the Unity Editor
-                UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#if UNITY_EDITOR
+        // This stops play mode in the Unity Editor
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
 
         Application.Quit();
-        
+
     }
 
-    public void OnPlayGameClicked()
+    public void OnReturnToMenuClicked()
     {
-        SceneManager.LoadScene(GameSceneName);
+        SceneManager.LoadScene(MenuSceneName);
     }
 
     public void OnSettingsClicked()
     {
         SettingsCanvas.SetActive(true);
+    }
+
+    public void OnResumeGameClicked()
+    {
+        // if the tick handling/resetting needs to done, do it here
     }
 
     public void OnHelpClicked()
