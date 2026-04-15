@@ -4,17 +4,18 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Drag Settings")]
     [SerializeField] private LayerMask draggableLayer;
-    [SerializeField] private float dragZ = -1f;         
-    [SerializeField] private float smoothSpeed = 20f;   
+    [SerializeField] private LayerMask cvLayer;          // Separate layer for CV objects only
+    [SerializeField] private float dragZ = -1f;
+    [SerializeField] private float smoothSpeed = 20f;
     [SerializeField] private float pickupScaleMultiplier = 1.05f;
 
     private Camera _cam;
     private GameObject _held;
-    private Vector3 _grabOffset;     
-    private Vector3 _originalPosition;
+    private Vector3 _grabOffset;
     private Vector3 _originalScale;
     private int _originalSortOrder;
     private SpriteRenderer _heldRenderer;
+    private bool _heldIsStamp;
 
     private const int DragSortOrderBoost = 10;
 
@@ -25,13 +26,34 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) TryPickUp();
-        if (Input.GetMouseButtonUp(0)) Drop();
-        if (_held != null) DragHeld();
+        // Right-click always deselects, regardless of what is held
+        if (Input.GetMouseButtonDown(1))
+        {
+            Deselect();
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (_held == null)
+            {
+                // Nothing held — try to select whatever is under the cursor
+                TrySelect();
+            }
+            else if (_heldIsStamp)
+            {
+                // Stamp held — left-click tries to stamp a CV, or deselects if none found
+                TryStamp();
+            }
+            // Non-stamp held: left-click does nothing; right-click (above) deselects
+        }
+
+        if (_held != null)
+            FollowCursor();
     }
 
 
-    void TryPickUp()
+    void TrySelect()
     {
         Vector3 worldPos = MouseWorldPosition(dragZ);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, draggableLayer);
@@ -39,10 +61,9 @@ public class PlayerController : MonoBehaviour
         if (hit == null) return;
 
         _held = hit.gameObject;
-        _originalPosition = _held.transform.position;
         _originalScale = _held.transform.localScale;
-
         _grabOffset = _held.transform.position - worldPos;
+        _heldIsStamp = _held.GetComponent<StampObject>() != null;
 
         _heldRenderer = _held.GetComponent<SpriteRenderer>();
         if (_heldRenderer != null)
@@ -52,11 +73,36 @@ public class PlayerController : MonoBehaviour
         }
 
         _held.transform.localScale = _originalScale * pickupScaleMultiplier;
-
         _held.SendMessage("OnPickedUp", SendMessageOptions.DontRequireReceiver);
     }
 
-    void DragHeld()
+    void TryStamp()
+    {
+        // Raycast on the CV layer specifically — stamps live on draggableLayer,
+        // so using cvLayer here means we never accidentally stamp the stamp itself
+        Vector3 worldPos = MouseWorldPosition(dragZ);
+        Collider2D hit = Physics2D.OverlapPoint(worldPos, cvLayer);
+
+        if (hit != null)
+        {
+            CVObject cv = hit.GetComponent<CVObject>();
+            StampObject stamp = _held.GetComponent<StampObject>();
+
+            if (cv != null && stamp != null)
+                cv.ApplyStamp(stamp.StampType);
+
+            // Always deselect after a stamp action so the player must
+            // deliberately re-select to stamp again — prevents accidental double-stamps
+            Deselect();
+        }
+        else
+        {
+            // Clicked on empty space with no CV underneath — deselect
+            Deselect();
+        }
+    }
+
+    void FollowCursor()
     {
         Vector3 target = MouseWorldPosition(dragZ) + _grabOffset;
 
@@ -67,11 +113,12 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-    void Drop()
+    void Deselect()
     {
         if (_held == null) return;
 
         _held.transform.localScale = _originalScale;
+
         if (_heldRenderer != null)
             _heldRenderer.sortingOrder = _originalSortOrder;
 
@@ -79,8 +126,10 @@ public class PlayerController : MonoBehaviour
 
         _held = null;
         _heldRenderer = null;
+        _heldIsStamp = false;
     }
 
+    
 
     Vector3 MouseWorldPosition(float z)
     {
@@ -90,8 +139,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    public void ForceDropHeld() => Drop();
+    public void ForceDeselect() => Deselect();
     public bool IsHoldingSomething => _held != null;
     public GameObject HeldObject => _held;
 }
