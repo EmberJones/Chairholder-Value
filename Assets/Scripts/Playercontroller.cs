@@ -2,65 +2,112 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Drag Settings")]
+    [Header("Layers")]
     [SerializeField] private LayerMask draggableLayer;
-    [SerializeField] private LayerMask cvLayer;          // Separate layer for CV objects only
+    [SerializeField] private LayerMask cvLayer;
+
+    [Header("Drag Settings")]
     [SerializeField] private float dragZ = -1f;
     [SerializeField] private float smoothSpeed = 20f;
     [SerializeField] private float pickupScaleMultiplier = 1.05f;
 
+    [Header("Double-Click")]
+    [SerializeField] private float doubleClickThreshold = 0.35f;
+
+    [Header("Read Mode")]
+    [SerializeField] private float readModeZ = -5f;
+    [SerializeField] private float readModeSpeed = 8f;
+    [SerializeField] private Vector2 readModeScreenCenter = new Vector2(0.5f, 0.55f);
+
     private Camera _cam;
+
+    // Held state
     private GameObject _held;
     private Vector3 _grabOffset;
     private Vector3 _originalScale;
-    private int _originalSortOrder;
     private SpriteRenderer _heldRenderer;
+    private int _originalSortOrder;
     private bool _heldIsStamp;
 
-    private const int DragSortOrderBoost = 10;
+    private float _lastClickTime = -999f;
+    private GameObject _lastClickTarget;
 
-    void Awake()
-    {
-        _cam = Camera.main;
-    }
+    // Read mode
+    private CVObject _cvInReadMode;
+
+    private const int DragSortOrderBoost = 10;
+    private const int ReadModeSortOrderBoost = 20;
+
+    void Awake() => _cam = Camera.main;
 
     void Update()
     {
-        // Right-click always deselects, regardless of what is held
         if (Input.GetMouseButtonDown(1))
         {
-            Deselect();
+            if (_cvInReadMode != null) ExitReadMode();
+            else Deselect();
             return;
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            if (_held == null)
-            {
-                // Nothing held — try to select whatever is under the cursor
-                TrySelect();
-            }
-            else if (_heldIsStamp)
-            {
-                // Stamp held — left-click tries to stamp a CV, or deselects if none found
-                TryStamp();
-            }
-            // Non-stamp held: left-click does nothing; right-click (above) deselects
-        }
+            HandleLeftClick();
 
-        if (_held != null)
+        // Only follow cursor when dragging, not in read mode
+        if (_held != null && _cvInReadMode == null)
             FollowCursor();
     }
 
 
-    void TrySelect()
+    void HandleLeftClick()
     {
+        // Left-click while reading always exits read mode
+        if (_cvInReadMode != null)
+        {
+            ExitReadMode();
+            return;
+        }
+
         Vector3 worldPos = MouseWorldPosition(dragZ);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, draggableLayer);
 
+        // --- Double-click check happens first
+        float now = Time.unscaledTime;
+        bool sameTarget = hit != null && hit.gameObject == _lastClickTarget;
+        bool withinWindow = (now - _lastClickTime) <= doubleClickThreshold;
+
+        if (sameTarget && withinWindow)
+        {
+            CVObject cv = hit.GetComponent<CVObject>();
+            if (cv != null)
+            {
+                // Drop the CV immediately if it was being dragged, then enter read mode
+                Deselect();
+                _lastClickTime = -999f; // Reset so a third click doesn't re-trigger
+                _lastClickTarget = null;
+                EnterReadMode(cv);
+                return;
+            }
+        }
+
+        // Record this click for next-click comparison
+        _lastClickTime = now;
+        _lastClickTarget = hit != null ? hit.gameObject : null;
+
+        // --- Normal click handling ---
+        if (_held != null && _heldIsStamp)
+        {
+            TryStamp(worldPos);
+            return;
+        }
+
         if (hit == null) return;
 
-        _held = hit.gameObject;
+        SelectObject(hit.gameObject, worldPos);
+    }
+
+    void SelectObject(GameObject obj, Vector3 worldPos)
+    {
+        _held = obj;
         _originalScale = _held.transform.localScale;
         _grabOffset = _held.transform.position - worldPos;
         _heldIsStamp = _held.GetComponent<StampObject>() != null;
@@ -72,45 +119,37 @@ public class PlayerController : MonoBehaviour
             _heldRenderer.sortingOrder = _originalSortOrder + DragSortOrderBoost;
         }
 
+        // Also boost any child renderers (text, overlays) so they stay on top
+        foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (child == _heldRenderer) continue;
+            child.sortingOrder += DragSortOrderBoost;
+        }
+
         _held.transform.localScale = _originalScale * pickupScaleMultiplier;
         _held.SendMessage("OnPickedUp", SendMessageOptions.DontRequireReceiver);
     }
 
-    void TryStamp()
+    void TryStamp(Vector3 worldPos)
     {
-        // Raycast on the CV layer specifically — stamps live on draggableLayer,
-        // so using cvLayer here means we never accidentally stamp the stamp itself
-        Vector3 worldPos = MouseWorldPosition(dragZ);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, cvLayer);
 
         if (hit != null)
         {
             CVObject cv = hit.GetComponent<CVObject>();
             StampObject stamp = _held.GetComponent<StampObject>();
-
             if (cv != null && stamp != null)
                 cv.ApplyStamp(stamp.StampType);
+        }
 
-            // Always deselect after a stamp action so the player must
-            // deliberately re-select to stamp again — prevents accidental double-stamps
-            Deselect();
-        }
-        else
-        {
-            // Clicked on empty space with no CV underneath — deselect
-            Deselect();
-        }
+        Deselect();
     }
 
     void FollowCursor()
     {
         Vector3 target = MouseWorldPosition(dragZ) + _grabOffset;
-
         _held.transform.position = Vector3.Lerp(
-            _held.transform.position,
-            target,
-            Time.deltaTime * smoothSpeed
-        );
+            _held.transform.position, target, Time.deltaTime * smoothSpeed);
     }
 
     void Deselect()
@@ -122,6 +161,13 @@ public class PlayerController : MonoBehaviour
         if (_heldRenderer != null)
             _heldRenderer.sortingOrder = _originalSortOrder;
 
+        // Restore child renderer sort orders
+        foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (child == _heldRenderer) continue;
+            child.sortingOrder -= DragSortOrderBoost;
+        }
+
         _held.SendMessage("OnDropped", SendMessageOptions.DontRequireReceiver);
 
         _held = null;
@@ -129,7 +175,30 @@ public class PlayerController : MonoBehaviour
         _heldIsStamp = false;
     }
 
-    
+    // Read mode
+
+    void EnterReadMode(CVObject cv)
+    {
+        _cvInReadMode = cv;
+
+        Vector3 viewportPoint = new Vector3(
+            readModeScreenCenter.x,
+            readModeScreenCenter.y,
+            _cam.transform.position.z * -1f + readModeZ);
+        Vector3 targetPos = _cam.ViewportToWorldPoint(viewportPoint);
+        targetPos.z = readModeZ;
+
+        cv.EnterReadMode(targetPos, readModeSpeed, ReadModeSortOrderBoost);
+    }
+
+    void ExitReadMode()
+    {
+        if (_cvInReadMode == null) return;
+        _cvInReadMode.ExitReadMode(readModeSpeed);
+        _cvInReadMode = null;
+        _lastClickTarget = null;
+    }
+
 
     Vector3 MouseWorldPosition(float z)
     {
@@ -138,8 +207,13 @@ public class PlayerController : MonoBehaviour
         return _cam.ScreenToWorldPoint(mouse);
     }
 
+    public void ForceDeselect()
+    {
+        if (_cvInReadMode != null) ExitReadMode();
+        Deselect();
+    }
 
-    public void ForceDeselect() => Deselect();
     public bool IsHoldingSomething => _held != null;
+    public bool IsInReadMode => _cvInReadMode != null;
     public GameObject HeldObject => _held;
 }

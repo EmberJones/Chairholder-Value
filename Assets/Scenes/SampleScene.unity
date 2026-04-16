@@ -371,11 +371,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   draggableLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   cvLayer:
     serializedVersion: 2
     m_Bits: 64
-  dragZ: -1
+  dragZ: -2
   smoothSpeed: 20
   pickupScaleMultiplier: 1.05
 --- !u!4 &1271034503
@@ -387,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 1271034501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.20502, y: -0.35367, z: -13.98242}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalRotation.y
@@ -439,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -60
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -448,6 +448,10 @@ PrefabInstance:
     - target: {fileID: 3699329557040946534, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556224359819755920, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -544,7 +548,7 @@ Transform:
   m_GameObject: {fileID: 1407860464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.4, y: -3.88, z: 1}
+  m_LocalPosition: {x: 5.4, y: -3.88, z: -1}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -698,7 +702,7 @@ Transform:
   m_GameObject: {fileID: 1846058327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.66, y: -4.08, z: 1}
+  m_LocalPosition: {x: 7.66, y: -4.08, z: -1}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -852,7 +856,7 @@ Transform:
   m_GameObject: {fileID: 1853214803}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -1.14, z: 1}
+  m_LocalPosition: {x: 6, y: -1.14, z: -1}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
