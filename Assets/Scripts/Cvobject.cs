@@ -5,17 +5,18 @@ public class CVObject : DraggableObject
 {
     [Header("CV Data")]
     [SerializeField] private string cvId;
+    public CVData Data { get; private set; }   
 
     [Header("Stamp Overlays")]
-    [SerializeField] private GameObject approveOverlay;
+    [SerializeField] private GameObject approveOverlay;  
     [SerializeField] private GameObject rejectOverlay;
 
     [Header("Stamp Sound")]
     [SerializeField] private AudioClip stampSound;
 
     [Header("Read Mode Rotation")]
-    [SerializeField] private Vector3 deskRotation = new Vector3(60f, 0f, 0f); // Rotation on the desk
-    [SerializeField] private Vector3 readRotation = new Vector3(0f, 0f, 0f); // Rotation when reading
+    [SerializeField] private Vector3 deskRotation = new Vector3(60f, 0f, 0f);
+    [SerializeField] private Vector3 readRotation = new Vector3(0f, 0f, 0f);
 
     private StampType? _decision;
     private AudioSource _audio;
@@ -38,11 +39,21 @@ public class CVObject : DraggableObject
         base.Awake();
         _audio = GetComponent<AudioSource>();
         _renderer = GetComponent<SpriteRenderer>();
+        TextAsset json = Resources.Load<TextAsset>($"CVs/{cvId}");
+        if (json != null)
+            SetData(JsonUtility.FromJson<CVData>(json.text));
+        else
+            Debug.Log($"CV data not found for ID: {cvId}");
 
         if (approveOverlay != null) approveOverlay.SetActive(false);
         if (rejectOverlay != null) rejectOverlay.SetActive(false);
     }
 
+    public void SetData(CVData data)
+    {
+        Data = data;
+        GetComponentInChildren<CVDisplay>()?.Populate(data);
+    }
     // Stamping
 
     public void ApplyStamp(StampType type)
@@ -59,7 +70,7 @@ public class CVObject : DraggableObject
         if (_audio != null && stampSound != null)
             _audio.PlayOneShot(stampSound);
 
-        //GameManager.Instance?.OnCVStamped(this);
+        GameManager.Instance?.OnCVStamped(this);
     }
 
     public void ClearStamp()
@@ -85,17 +96,21 @@ public class CVObject : DraggableObject
             _renderer.sortingOrder = _preReadSortOrder + sortBoost;
         }
 
-        // Also boost child renderers so text/overlays stay visible
         foreach (var child in GetComponentsInChildren<SpriteRenderer>())
         {
             if (child == _renderer) continue;
             child.sortingOrder += sortBoost;
         }
 
-        Vector3 targetScale = _preReadScale * 2.5f;
+        foreach (var tmp in GetComponentsInChildren<TMPro.TMP_Text>())
+        {
+            var r = tmp.GetComponent<Renderer>();
+            if (r != null) r.sortingOrder += sortBoost;
+        }
 
         if (_lerpCoroutine != null) StopCoroutine(_lerpCoroutine);
-        _lerpCoroutine = StartCoroutine(LerpTo(targetPos, readRotation, targetScale, speed));
+        _lerpCoroutine = StartCoroutine(
+            LerpTo(targetPos, readRotation, _preReadScale * 2.5f, speed));
     }
 
     public void ExitReadMode(float speed)
@@ -113,10 +128,17 @@ public class CVObject : DraggableObject
                 if (child == _renderer) continue;
                 child.sortingOrder -= boost;
             }
+
+            foreach (var tmp in GetComponentsInChildren<TMPro.TMP_Text>())
+            {
+                var r = tmp.GetComponent<Renderer>();
+                if (r != null) r.sortingOrder -= boost;
+            }
         }
 
         if (_lerpCoroutine != null) StopCoroutine(_lerpCoroutine);
-        _lerpCoroutine = StartCoroutine(LerpTo(_preReadPosition, deskRotation, _preReadScale, speed));
+        _lerpCoroutine = StartCoroutine(
+            LerpTo(_preReadPosition, deskRotation, _preReadScale, speed));
     }
 
     IEnumerator LerpTo(Vector3 targetPos, Vector3 targetEuler, Vector3 targetScale, float speed)
@@ -133,7 +155,6 @@ public class CVObject : DraggableObject
             yield return null;
         }
 
-        // Snap to exact final values
         transform.position = targetPos;
         transform.rotation = targetRot;
         transform.localScale = targetScale;

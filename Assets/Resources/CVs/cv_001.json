@@ -1,0 +1,83 @@
+{
+  "id": "cv_001",
+
+  "meta": {
+    "difficulty": "easy",
+    "correct_decision": "approve",
+    "decision_reason": "All qualifications match the posting, continuous employment history, no inconsistencies.",
+    "red_flags": [],
+    "green_flags": [
+      "9 years continuous relevant experience",
+      "Degree matches job requirement",
+      "No employment gaps"
+    ],
+    "photo_ref": "portrait_01.png"
+  },
+
+  "personal": {
+    "full_name": "Marta Veldova",
+    "age": 34,
+    "dob": "1991-03-14",
+    "nationality": "Arstotzkan",
+    "address": "14 Korolov Street, Nirsk",
+    "phone": "012-447-8821",
+    "email": "m.veldova@mailpost.ars"
+  },
+
+  "application": {
+    "position": "Records Clerk",
+    "department": "Municipal Archives",
+    "reference_number": "APP-2031-0001",
+    "date_received": "2031-09-04",
+    "cover_note": "I have worked in document processing for nine years and am confident I meet all stated requirements."
+  },
+
+  "experience": [
+    {
+      "job_title": "Senior Filing Officer",
+      "company": "Ministry of Internal Affairs",
+      "start_year": 2025,
+      "end_year": "present",
+      "description": "Managed intake and archiving of civil registration documents for the Nirsk district."
+    },
+    {
+      "job_title": "Filing Officer",
+      "company": "Ministry of Internal Affairs",
+      "start_year": 2022,
+      "end_year": 2025,
+      "description": "Processed daily document requests and maintained filing indexes."
+    },
+    {
+      "job_title": "Administrative Assistant",
+      "company": "Nirsk Regional Council",
+      "start_year": 2019,
+      "end_year": 2022,
+      "description": "Supported the records team with data entry and correspondence."
+    }
+  ],
+
+  "education": [
+    {
+      "qualification": "Diploma in Public Administration",
+      "institution": "Nirsk Polytechnic",
+      "year_completed": 2019,
+      "grade": "Merit"
+    }
+  ],
+
+  "skills": [
+    "Document indexing and archival",
+    "Data entry (450 wpm)",
+    "Records management software (ARSREC v4)",
+    "Fluent in Arstotzkan and Kolechian"
+  ],
+
+  "references": [
+    {
+      "name": "D. Krulov",
+      "title": "Department Head",
+      "company": "Ministry of Internal Affairs",
+      "contactable": true
+    }
+  ]
+}

@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             HandleLeftClick();
 
-        // Only follow cursor when dragging, not in read mode
         if (_held != null && _cvInReadMode == null)
             FollowCursor();
     }
@@ -60,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleLeftClick()
     {
-        // Left-click while reading always exits read mode
+        // Any click while in read mode exits it
         if (_cvInReadMode != null)
         {
             ExitReadMode();
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         Vector3 worldPos = MouseWorldPosition(dragZ);
         Collider2D hit = Physics2D.OverlapPoint(worldPos, draggableLayer);
 
-        // --- Double-click check happens first
+
         float now = Time.unscaledTime;
         bool sameTarget = hit != null && hit.gameObject == _lastClickTarget;
         bool withinWindow = (now - _lastClickTime) <= doubleClickThreshold;
@@ -80,35 +79,38 @@ public class PlayerController : MonoBehaviour
             CVObject cv = hit.GetComponent<CVObject>();
             if (cv != null)
             {
-                // Drop the CV immediately if it was being dragged, then enter read mode
-                Deselect();
-                _lastClickTime = -999f; // Reset so a third click doesn't re-trigger
+                Deselect();            // Drop if currently held
+                _lastClickTime = -999f;
                 _lastClickTarget = null;
                 EnterReadMode(cv);
                 return;
             }
         }
 
-        // Record this click for next-click comparison
+        // Record click for next comparison
         _lastClickTime = now;
         _lastClickTarget = hit != null ? hit.gameObject : null;
 
-        // --- Normal click handling ---
-        if (_held != null && _heldIsStamp)
+        // --- If something is already held ---
+        if (_held != null)
         {
-            TryStamp(worldPos);
+            if (_heldIsStamp)
+                TryStamp(worldPos);   // Stamp held: try to stamp CV under cursor
+            else
+                Deselect();           // CV held: left-click drops it
             return;
         }
 
         if (hit == null) return;
-
         SelectObject(hit.gameObject, worldPos);
     }
 
     void SelectObject(GameObject obj, Vector3 worldPos)
     {
+        if (_held == obj) return;
+
         _held = obj;
-        _originalScale = _held.transform.localScale;
+        _originalScale = _held.transform.localScale;  
         _grabOffset = _held.transform.position - worldPos;
         _heldIsStamp = _held.GetComponent<StampObject>() != null;
 
@@ -119,11 +121,17 @@ public class PlayerController : MonoBehaviour
             _heldRenderer.sortingOrder = _originalSortOrder + DragSortOrderBoost;
         }
 
-        // Also boost any child renderers (text, overlays) so they stay on top
         foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
         {
             if (child == _heldRenderer) continue;
             child.sortingOrder += DragSortOrderBoost;
+        }
+
+        // Boost child TMP text renderers so they don't get buried
+        foreach (var tmp in _held.GetComponentsInChildren<TMPro.TMP_Text>())
+        {
+            var r = tmp.GetComponent<Renderer>();
+            if (r != null) r.sortingOrder += DragSortOrderBoost;
         }
 
         _held.transform.localScale = _originalScale * pickupScaleMultiplier;
@@ -161,11 +169,18 @@ public class PlayerController : MonoBehaviour
         if (_heldRenderer != null)
             _heldRenderer.sortingOrder = _originalSortOrder;
 
-        // Restore child renderer sort orders
+        // Restore child SpriteRenderer sort orders
         foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
         {
             if (child == _heldRenderer) continue;
             child.sortingOrder -= DragSortOrderBoost;
+        }
+
+        // Restore child TMP sort orders
+        foreach (var tmp in _held.GetComponentsInChildren<TMPro.TMP_Text>())
+        {
+            var r = tmp.GetComponent<Renderer>();
+            if (r != null) r.sortingOrder -= DragSortOrderBoost;
         }
 
         _held.SendMessage("OnDropped", SendMessageOptions.DontRequireReceiver);
