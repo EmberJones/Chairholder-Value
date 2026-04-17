@@ -1,0 +1,88 @@
+{
+  "id": "cv_003",
+
+  "meta": {
+    "difficulty": "hard",
+    "correct_decision": "reject",
+    "decision_reason": "Strong candidate on paper, but reference is listed as uncontactable and the employer 'Vekna Solutions' does not appear in the approved employer registry (hidden rule surfaced in-game via a desk memo). Easy to miss.",
+    "red_flags": [
+      "Primary employer 'Vekna Solutions' not in approved employer registry",
+      "Only reference is uncontactable"
+    ],
+    "green_flags": [
+      "7 years relevant experience",
+      "Completed qualification matches role requirements",
+      "No employment gaps",
+      "Strong skill match"
+    ],
+    "photo_ref": "portrait_03.png"
+  },
+
+  "personal": {
+    "full_name": "Alena Prochko",
+    "age": 41,
+    "dob": "1990-11-28",
+    "nationality": "Arstotzkan",
+    "address": "22b Ulitsa Mira, Orvech",
+    "phone": "012-771-3390",
+    "email": "a.prochko@netpost.ars"
+  },
+
+  "application": {
+    "position": "Records Clerk",
+    "department": "Municipal Archives",
+    "reference_number": "APP-2031-0003",
+    "date_received": "2031-09-06",
+    "cover_note": "With seven years in document control and a strong administrative background, I believe I am an excellent fit for this role."
+  },
+
+  "experience": [
+    {
+      "job_title": "Document Control Specialist",
+      "company": "Vekna Solutions",
+      "start_year": 2024,
+      "end_year": "present",
+      "description": "Oversaw document lifecycle management for a private contracting firm."
+    },
+    {
+      "job_title": "Records Technician",
+      "company": "Orvech Municipal Office",
+      "start_year": 2019,
+      "end_year": 2024,
+      "description": "Processed public records requests and maintained the district archive."
+    },
+    {
+      "job_title": "Administrative Clerk",
+      "company": "Orvech Regional Hospital",
+      "start_year": 2016,
+      "end_year": 2019,
+      "description": "Managed patient intake documentation and filing."
+    }
+  ],
+
+  "education": [
+    {
+      "qualification": "Certificate in Records and Information Management",
+      "institution": "Orvech Technical College",
+      "year_completed": 2016,
+      "grade": "Distinction"
+    }
+  ],
+
+  "skills": [
+    "Document control and version management",
+    "Archive cataloguing",
+    "ARSREC v3 and v4",
+    "Regulatory compliance documentation",
+    "Fluent Arstotzkan, basic Impor"
+  ],
+
+  "references": [
+    {
+      "name": "V. Mecka",
+      "title": "Director",
+      "company": "Vekna Solutions",
+      "contactable": false
+    }
+  ]
+}

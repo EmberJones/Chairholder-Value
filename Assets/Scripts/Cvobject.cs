@@ -39,7 +39,7 @@ public class CVObject : DraggableObject
         base.Awake();
         _audio = GetComponent<AudioSource>();
         _renderer = GetComponent<SpriteRenderer>();
-        TextAsset json = Resources.Load<TextAsset>($"CVs/{cvId}");
+        TextAsset json = Resources.Load<TextAsset>($"{cvId}");
         if (json != null)
             SetData(JsonUtility.FromJson<CVData>(json.text));
         else

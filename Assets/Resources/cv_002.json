@@ -1,0 +1,75 @@
+{
+  "id": "cv_002",
+
+  "meta": {
+    "difficulty": "easy",
+    "correct_decision": "reject",
+    "decision_reason": "Stated age (29) is inconsistent with DOB (which gives age 37). Three-year unexplained employment gap. Qualification listed as incomplete.",
+    "red_flags": [
+      "Age 29 contradicts DOB 1994-06-02 — actual age is 37",
+      "Unexplained employment gap 2026-2029",
+      "BSc listed as 'incomplete' — does not meet minimum qualification for role"
+    ],
+    "green_flags": [],
+    "photo_ref": "portrait_02.png"
+  },
+
+  "personal": {
+    "full_name": "Henryk Bosar",
+    "age": 29,
+    "dob": "1994-06-02",
+    "nationality": "Arstotzkan",
+    "address": "Flat 3, 9 Drenka Road, Enkow",
+    "phone": "012-553-0044",
+    "email": "h.bosar@quickmail.ars"
+  },
+
+  "application": {
+    "position": "Records Clerk",
+    "department": "Municipal Archives",
+    "reference_number": "APP-2031-0002",
+    "date_received": "2031-09-05",
+    "cover_note": "I am eager to contribute to the archives and learn on the job."
+  },
+
+  "experience": [
+    {
+      "job_title": "Data Entry Operator",
+      "company": "Enkow Freight Logistics",
+      "start_year": 2029,
+      "end_year": "present",
+      "description": "Entered shipping manifests and updated cargo tracking databases."
+    },
+    {
+      "job_title": "Office Runner",
+      "company": "Bosar Family Trade",
+      "start_year": 2022,
+      "end_year": 2026,
+      "description": "General office duties for family business."
+    }
+  ],
+
+  "education": [
+    {
+      "qualification": "BSc Information Systems",
+      "institution": "University of Enkow",
+      "year_completed": "incomplete",
+      "grade": null
+    }
+  ],
+
+  "skills": [
+    "Basic data entry",
+    "Filing",
+    "Proficient in Microsoft Office"
+  ],
+
+  "references": [
+    {
+      "name": "T. Bosar",
+      "title": "Owner",
+      "company": "Bosar Family Trade",
+      "contactable": false
+    }
+  ]
+}
