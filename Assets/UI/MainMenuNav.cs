@@ -6,6 +6,7 @@ public class MainMenuNav : MonoBehaviour
 {
     [SerializeField] private GameObject SettingsCanvas;
     [SerializeField] private string GameSceneName;
+    [SerializeField] private GameObject HelpScreen;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +36,11 @@ public class MainMenuNav : MonoBehaviour
 
     public void OnHelpClicked()
     {
-        // Have nothing to put here yet
+        HelpScreen.SetActive(true);
+    }
+
+    public void CloseHelpClicked()
+    {
+        HelpScreen.SetActive(false);
     }
 }
