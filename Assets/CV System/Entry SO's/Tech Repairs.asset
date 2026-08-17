@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b7642f96ed42449254cfa3f585f71, type: 3}
+  m_Name: Tech Repairs
+  m_EditorClassIdentifier: Assembly-CSharp::CVEntry
+  DisplayText: 'Learnt how to do essential technological maintenance and repair through
+    many years of experimenting with computer components and writing software as
+    a hobby. '
+  Category: 2
+  Tags:
+  - {fileID: 11400000, guid: 295a1c45a9b784042abe09ef21b20f1a, type: 2}
+  - {fileID: 11400000, guid: 889491e50bde78340a72ecaccd3fd141, type: 2}
+  - {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
+  QualityScore: 0.656
+  YearsOfExperience: 0

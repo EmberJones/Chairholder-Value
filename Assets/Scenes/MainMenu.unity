@@ -680,6 +680,34 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6347397036438372475}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Previous
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WindowModeSwitcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638926120559082539, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7239502565296759528, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
       propertyPath: m_Camera
       value: 
@@ -696,11 +724,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6347397036438372475}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WindowModeSwitcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958552744324850148, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+--- !u!114 &6347397036438372475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4013983733038682294, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+  m_PrefabInstance: {fileID: 6347397036438372474}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72540c0cef0be7b49866c923ee2298f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindowModeSwitcher
 --- !u!1001 &7539196729495563150
 PrefabInstance:
   m_ObjectHideFlags: 0

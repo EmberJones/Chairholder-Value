@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b7642f96ed42449254cfa3f585f71, type: 3}
+  m_Name: Marketing Assistant
+  m_EditorClassIdentifier: Assembly-CSharp::CVEntry
+  DisplayText: Managed Social Media campaigns and prepared marketing materials for
+    use as  aSocial Media and Marketing Assistant at ABC Media (2022-2025).
+  Category: 0
+  Tags:
+  - {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
+  - {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
+  - {fileID: 11400000, guid: 2556e66f946a944449d24c08db538608, type: 2}
+  - {fileID: 11400000, guid: b63a510bffb5e6e4e8d6b616993ac494, type: 2}
+  - {fileID: 11400000, guid: 6f570dfdfaaffd6478bbc3ee5d830672, type: 2}
+  - {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
+  - {fileID: 11400000, guid: fb539d72eb8836b44bcd44c4793ec466, type: 2}
+  - {fileID: 11400000, guid: 7bc4987ddae453846bc0a499bc4e36a3, type: 2}
+  - {fileID: 11400000, guid: e3cbe5d9bbcff834495d66dffa94cdd2, type: 2}
+  QualityScore: 0.651
+  YearsOfExperience: 3

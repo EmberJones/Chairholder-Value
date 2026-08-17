@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b7642f96ed42449254cfa3f585f71, type: 3}
+  m_Name: Research Assistant
+  m_EditorClassIdentifier: Assembly-CSharp::CVEntry
+  DisplayText: Collected and analysed research data and contributed to the preperation
+    of academic reports as part of my role as a Research Assistant at the University
+    of Pretoria.
+  Category: 0
+  Tags:
+  - {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
+  - {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
+  - {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
+  - {fileID: 11400000, guid: 315bd5ca7bc2e984db1c37a8ba1952eb, type: 2}
+  - {fileID: 11400000, guid: e3cbe5d9bbcff834495d66dffa94cdd2, type: 2}
+  QualityScore: 0.5
+  YearsOfExperience: 2

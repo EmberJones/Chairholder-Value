@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012f73c7a49bef4408a13c347e263273, type: 3}
+  m_Name: Receptionist
+  m_EditorClassIdentifier: Assembly-CSharp::JobRole
+  RoleTitle: Receptionist
+  RoleDescription: 'The first person in the company someone will see, needs good
+    knowledge of the company as a whole and is good communicating with people. '
+  TagWeights:
+  - Tag: {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
+    Weight: 0.92
+  - Tag: {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
+    Weight: 0.58
+  - Tag: {fileID: 11400000, guid: b63a510bffb5e6e4e8d6b616993ac494, type: 2}
+    Weight: 0.4
+  - Tag: {fileID: 11400000, guid: d431b16c5cb25724a907261f145529b4, type: 2}
+    Weight: 0.48
+  - Tag: {fileID: 11400000, guid: fb539d72eb8836b44bcd44c4793ec466, type: 2}
+    Weight: 0.43
+  - Tag: {fileID: 11400000, guid: e3cbe5d9bbcff834495d66dffa94cdd2, type: 2}
+    Weight: 0.43
+  - Tag: {fileID: 11400000, guid: 3f45eb9298e4a9848bb6d927ec894494, type: 2}
+    Weight: 0.94
+  CategoryWeights:
+  - Category: 0
+    Weight: 1.58
+  - Category: 3
+    Weight: 1.24
+  PreferredMinYearsExperience: 3

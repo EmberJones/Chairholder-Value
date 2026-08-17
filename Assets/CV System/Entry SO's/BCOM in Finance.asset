@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b7642f96ed42449254cfa3f585f71, type: 3}
+  m_Name: BCOM in Finance
+  m_EditorClassIdentifier: Assembly-CSharp::CVEntry
+  DisplayText: 'Completed and earned my Bachelor of Commerce from the University
+    of Cape Town. '
+  Category: 1
+  Tags:
+  - {fileID: 11400000, guid: 9e473d682daa30145b3f863b9b23912f, type: 2}
+  - {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
+  - {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
+  - {fileID: 11400000, guid: b63a510bffb5e6e4e8d6b616993ac494, type: 2}
+  - {fileID: 11400000, guid: 6f570dfdfaaffd6478bbc3ee5d830672, type: 2}
+  - {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
+  - {fileID: 11400000, guid: fb539d72eb8836b44bcd44c4793ec466, type: 2}
+  - {fileID: 11400000, guid: dea83e705b8e23a4a9153242f823ed77, type: 2}
+  QualityScore: 0.6
+  YearsOfExperience: 4
