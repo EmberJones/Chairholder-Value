@@ -16,3 +16,4 @@ MonoBehaviour:
   FormatScore: 100
   Notes:
   - A perfectly formatted CV with all the information required.
+  DeskSprite: {fileID: -5859812674537892544, guid: f459030238e51ce4e8d4b48c21a77c5f, type: 3}

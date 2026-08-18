@@ -16,3 +16,4 @@ MonoBehaviour:
   FormatScore: 50
   Notes:
   - Content is poorly formatted and hard to read.
+  DeskSprite: {fileID: -2441523721118023779, guid: c778e52ac14f02e439a84a888e6a06d8, type: 3}

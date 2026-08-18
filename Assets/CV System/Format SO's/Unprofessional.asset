@@ -16,3 +16,4 @@ MonoBehaviour:
   FormatScore: 5
   Notes:
   - CV includes an unprofessional photo
+  DeskSprite: {fileID: -3110789979385693665, guid: c2e8f746898f7fd46a2ddfb8740482dd, type: 3}

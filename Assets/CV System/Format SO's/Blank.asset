@@ -18,3 +18,4 @@ MonoBehaviour:
   - 'There''s nothing here, huh, strange.
 
     Perhaps a misprint?'
+  DeskSprite: {fileID: 1403384929957449419, guid: 8fec0f4a73fb1134fb14e33b92ba8cca, type: 3}
