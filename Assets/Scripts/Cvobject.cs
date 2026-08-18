@@ -6,9 +6,6 @@ public class CVObject : DraggableObject
     [Header("CV Data")]
     public GeneratedCV Data { get; private set; }
 
-    [Header("Desk Visual")]
-    [SerializeField] private SpriteRenderer deskRenderer;
-
     [Header("Stamp Overlays")]
     [SerializeField] private GameObject approveOverlay;
     [SerializeField] private GameObject rejectOverlay;
@@ -35,14 +32,9 @@ public class CVObject : DraggableObject
     public void SetData(GeneratedCV data)
     {
         Data = data;
-        ApplyDeskVisual();
-    }
 
-    private void ApplyDeskVisual()
-    {
-        if (deskRenderer == null || Data?.FormatProfile == null) return;
-        if (Data.FormatProfile.DeskSprite != null)
-            deskRenderer.sprite = Data.FormatProfile.DeskSprite;
+        gameObject.GetComponent<SpriteRenderer>().sprite = Data.FormatProfile.DeskSprite;
+
     }
 
     // Click opens the detail page - no more lifting/rotating this object itself

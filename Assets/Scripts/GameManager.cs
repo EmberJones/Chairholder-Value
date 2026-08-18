@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameState _currentState = GameState.Idle;
     public GameState CurrentState => _currentState;
 
+    [Header("CV Generator")]
+    [SerializeField] private CVGenerator Generator;
+    [SerializeField] private GameObject CVPrefab;
+    [SerializeField] private Transform CVSpawnPosition;
+
     [Header("Round Config")]
     [SerializeField] private JobRole currentRole;
 
@@ -40,22 +45,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ScoreQueue();
-        ActivateCurrentCV();
-    }
-
-    void ScoreQueue()
-    {
-        if (currentRole == null)
+        var CVBatch = Generator.GenerateBatch(currentRole);
+        CVScorer.ScoreAll(CVBatch, currentRole);
+        foreach (var CV in CVBatch)
         {
-            Debug.LogWarning("[GameManager] No JobRole assigned - cannot score CVs.");
-            return;
-        }
-
-        foreach (var cvObj in cvQueue)
-        {
-            if (cvObj.Data != null)
-                CVScorer.Score(cvObj.Data, currentRole);
+            var newcvobj = Instantiate(CVPrefab, CVSpawnPosition.position, CVSpawnPosition.rotation);
+            newcvobj.GetComponent<CVObject>().SetData(CV);
+            // create a CV object, give it it's Generated CV, it should populate itself
         }
     }
 
