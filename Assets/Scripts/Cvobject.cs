@@ -37,10 +37,14 @@ public class CVObject : DraggableObject
 
     }
 
-    // Click opens the detail page - no more lifting/rotating this object itself
-    private void OnMouseDown()
+    protected override void OnPickedUp()
     {
-        CVDetailUI.Instance.Open(this);
+        base.OnPickedUp();
+    }
+
+    protected override void OnDropped()
+    {
+        base.OnDropped();
     }
 
     // Stamping - unchanged behaviour, still happens on the desk object

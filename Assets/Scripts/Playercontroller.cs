@@ -3,217 +3,209 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Layers")]
-    [SerializeField] private LayerMask draggableLayer;
+    [SerializeField] private LayerMask stampLayer;
     [SerializeField] private LayerMask cvLayer;
+    [SerializeField] private LayerMask faxLayer;
 
     [Header("Drag Settings")]
-    [SerializeField] private float dragZ = -1f;
-    [SerializeField] private float smoothSpeed = 20f;
-    [SerializeField] private float pickupScaleMultiplier = 1.05f;
+    [SerializeField] private float deskHeight = 0f;
+    [SerializeField] private float dragSpring = 15f;
+    [SerializeField] private float maxDragSpeed = 20f;
+    [SerializeField] private float dragLift = 0.05f;
 
     [Header("Double-Click")]
     [SerializeField] private float doubleClickThreshold = 0.35f;
 
+    private RigidbodyConstraints _heldOriginalConstraints;
     private Camera _cam;
+    private Plane _deskPlane;
 
-    // Held state
     private GameObject _held;
+    private Rigidbody _heldRb;
     private Vector3 _grabOffset;
-    private Vector3 _originalScale;
-    private SpriteRenderer _heldRenderer;
-    private int _originalSortOrder;
     private bool _heldIsStamp;
 
     private float _lastClickTime = -999f;
     private GameObject _lastClickTarget;
+    private bool _isDragging;
 
-    // Read mode
-    private CVObject _cvInReadMode;
-
-    private const int DragSortOrderBoost = 10;
-    private const int ReadModeSortOrderBoost = 20;
-
-    void Awake() => _cam = Camera.main;
+    void Awake()
+    {
+        _cam = Camera.main;
+        _deskPlane = new Plane(Vector3.up, new Vector3(0f, deskHeight, 0f));
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        // Middle mouse to force deselect
+        if (Input.GetMouseButtonDown(2))
         {
-            if (_cvInReadMode != null) ExitReadMode();
-            else Deselect();
+            Deselect();
             return;
         }
 
+        // Left mouse button pressed
         if (Input.GetMouseButtonDown(0))
-            HandleLeftClick();
-
-        if (_held != null && _cvInReadMode == null)
-            FollowCursor();
+        {
+            HandleMouseDown();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            HandleMouseUp();
+        }
     }
 
-
-    void HandleLeftClick()
+    void FixedUpdate()
     {
-        // Any click while in read mode exits it
-        if (_cvInReadMode != null)
+        if (_heldRb == null || !_isDragging) return;
+
+        Vector3 target = RaycastDeskPoint() + _grabOffset + Vector3.up * dragLift;
+        Vector3 vel = (target - _heldRb.position) * dragSpring;
+        if (vel.magnitude > maxDragSpeed) vel = vel.normalized * maxDragSpeed;
+        _heldRb.linearVelocity = vel;
+        _heldRb.angularVelocity = Vector3.zero;
+    }
+
+    void HandleMouseDown()
+    {
+        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+
+        // First, do a raycast for everything and get all hits
+        RaycastHit[] allHits = Physics.RaycastAll(ray, 100f);
+
+        // Sort by distance
+        System.Array.Sort(allHits, (a, b) => a.distance.CompareTo(b.distance));
+
+        // If holding a stamp, try to stamp the first CV we hit
+        if (_held != null && _heldIsStamp)
         {
-            ExitReadMode();
+            // Look for a CV to stamp
+            foreach (RaycastHit hit in allHits)
+            {
+                if (((1 << hit.collider.gameObject.layer) & cvLayer) != 0)
+                {
+                    CVObject cv = hit.collider.GetComponent<CVObject>();
+                    StampObject stamp = _held.GetComponent<StampObject>();
+                    if (cv != null && stamp != null)
+                    {
+                        cv.ApplyStamp(stamp.StampType);
+                        // Stamp is used, deselect it
+                        Deselect();
+                        return;
+                    }
+                }
+            }
+            // If no CV found, just drop the stamp
+            Deselect();
             return;
         }
 
-        Vector3 worldPos = MouseWorldPosition(dragZ);
-        Collider2D hit = Physics2D.OverlapPoint(worldPos, draggableLayer);
-
-
-        float now = Time.unscaledTime;
-        bool sameTarget = hit != null && hit.gameObject == _lastClickTarget;
-        bool withinWindow = (now - _lastClickTime) <= doubleClickThreshold;
-
-        if (sameTarget && withinWindow)
+        // If holding something else (non-stamp), drop it
+        if (_held != null)
         {
-            CVObject cv = hit.GetComponent<CVObject>();
-            if (cv != null)
+            Deselect();
+            return;
+        }
+
+        // Nothing held - check what we're clicking on
+        foreach (RaycastHit hit in allHits)
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            int layer = hit.collider.gameObject.layer;
+
+            // Check for fax machine (highest priority)
+            if (((1 << layer) & faxLayer) != 0)
             {
-                Deselect();            // Drop if currently held
-                _lastClickTime = -999f;
-                _lastClickTarget = null;
-                EnterReadMode(cv);
+                hit.collider.GetComponent<FaxMachine>()?.TrySubmitRound();
+                return;
+            }
+
+            // Check for CV objects
+            if (((1 << layer) & cvLayer) != 0)
+            {
+                float now = Time.unscaledTime;
+                bool sameTarget = hitObject == _lastClickTarget;
+                bool withinWindow = (now - _lastClickTime) <= doubleClickThreshold;
+
+                if (sameTarget && withinWindow)
+                {
+                    CVObject cv = hit.collider.GetComponent<CVObject>();
+                    if (cv != null)
+                    {
+                        CVDetailUI.Instance.Open(cv);
+                        _lastClickTime = -999f;
+                        _lastClickTarget = null;
+                        return;
+                    }
+                }
+
+                _lastClickTime = now;
+                _lastClickTarget = hitObject;
+                SelectObject(hitObject, isStamp: false);
+                return;
+            }
+
+            // Check for stamps
+            if (((1 << layer) & stampLayer) != 0)
+            {
+                SelectObject(hitObject, isStamp: true);
                 return;
             }
         }
-
-        // Record click for next comparison
-        _lastClickTime = now;
-        _lastClickTarget = hit != null ? hit.gameObject : null;
-
-        // --- If something is already held ---
-        if (_held != null)
-        {
-            if (_heldIsStamp)
-                TryStamp(worldPos);   // Stamp held: try to stamp CV under cursor
-            else
-                Deselect();           // CV held: left-click drops it
-            return;
-        }
-
-        if (hit == null) return;
-        SelectObject(hit.gameObject, worldPos);
     }
 
-    void SelectObject(GameObject obj, Vector3 worldPos)
+    void HandleMouseUp()
     {
-        if (_held == obj) return;
+        // Drop the held object when mouse button is released
+        if (_held != null && !_heldIsStamp)
+        {
+            Deselect();
+        }
+        // If it's a stamp, keep holding it after click
+    }
 
+    void SelectObject(GameObject obj, bool isStamp)
+    {
         _held = obj;
-        _originalScale = _held.transform.localScale;  
-        _grabOffset = _held.transform.position - worldPos;
-        _heldIsStamp = _held.GetComponent<StampObject>() != null;
+        _heldIsStamp = isStamp;
+        _heldRb = obj.GetComponent<Rigidbody>();
+        _grabOffset = obj.transform.position - RaycastDeskPoint();
+        _isDragging = true;
 
-        _heldRenderer = _held.GetComponent<SpriteRenderer>();
-        if (_heldRenderer != null)
-        {
-            _originalSortOrder = _heldRenderer.sortingOrder;
-            _heldRenderer.sortingOrder = _originalSortOrder + DragSortOrderBoost;
-        }
+        _heldOriginalConstraints = _heldRb.constraints;
+        _heldRb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
-        {
-            if (child == _heldRenderer) continue;
-            child.sortingOrder += DragSortOrderBoost;
-        }
-
-        // Boost child TMP text renderers so they don't get buried
-        foreach (var tmp in _held.GetComponentsInChildren<TMPro.TMP_Text>())
-        {
-            var r = tmp.GetComponent<Renderer>();
-            if (r != null) r.sortingOrder += DragSortOrderBoost;
-        }
-
-        _held.transform.localScale = _originalScale * pickupScaleMultiplier;
         _held.SendMessage("OnPickedUp", SendMessageOptions.DontRequireReceiver);
     }
 
-    void TryStamp(Vector3 worldPos)
+    Vector3 RaycastDeskPoint()
     {
-        Collider2D hit = Physics2D.OverlapPoint(worldPos, cvLayer);
-
-        if (hit != null)
+        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+        if (_deskPlane.Raycast(ray, out float dist))
         {
-            CVObject cv = hit.GetComponent<CVObject>();
-            StampObject stamp = _held.GetComponent<StampObject>();
-            if (cv != null && stamp != null)
-                cv.ApplyStamp(stamp.StampType);
+            return ray.GetPoint(dist);
         }
-
-        Deselect();
-    }
-
-    void FollowCursor()
-    {
-        Vector3 target = MouseWorldPosition(dragZ) + _grabOffset;
-        _held.transform.position = Vector3.Lerp(
-            _held.transform.position, target, Time.deltaTime * smoothSpeed);
+        return _held != null ? _held.transform.position : Vector3.zero;
     }
 
     void Deselect()
     {
         if (_held == null) return;
 
-        _held.transform.localScale = _originalScale;
-
-        if (_heldRenderer != null)
-            _heldRenderer.sortingOrder = _originalSortOrder;
-
-        // Restore child SpriteRenderer sort orders
-        foreach (var child in _held.GetComponentsInChildren<SpriteRenderer>())
+        if (_heldRb != null)
         {
-            if (child == _heldRenderer) continue;
-            child.sortingOrder -= DragSortOrderBoost;
-        }
-
-        // Restore child TMP sort orders
-        foreach (var tmp in _held.GetComponentsInChildren<TMPro.TMP_Text>())
-        {
-            var r = tmp.GetComponent<Renderer>();
-            if (r != null) r.sortingOrder -= DragSortOrderBoost;
+            _heldRb.linearVelocity = Vector3.zero;
+            _heldRb.angularVelocity = Vector3.zero;
+            _heldRb.constraints = _heldOriginalConstraints;
         }
 
         _held.SendMessage("OnDropped", SendMessageOptions.DontRequireReceiver);
-
         _held = null;
-        _heldRenderer = null;
+        _heldRb = null;
         _heldIsStamp = false;
+        _isDragging = false;
     }
 
-    void EnterReadMode(CVObject cv)
-    {
-        _cvInReadMode = cv;
-        CVDetailUI.Instance.Open(cv);
-    }
-
-    void ExitReadMode()
-    {
-        if (_cvInReadMode == null) return;
-        CVDetailUI.Instance.Close();
-        _cvInReadMode = null;
-        _lastClickTarget = null;
-    }
-
-
-    Vector3 MouseWorldPosition(float z)
-    {
-        Vector3 mouse = Input.mousePosition;
-        mouse.z = _cam.transform.position.z * -1f + z;
-        return _cam.ScreenToWorldPoint(mouse);
-    }
-
-    public void ForceDeselect()
-    {
-        if (_cvInReadMode != null) ExitReadMode();
-        Deselect();
-    }
-
+    public void ForceDeselect() => Deselect();
     public bool IsHoldingSomething => _held != null;
-    public bool IsInReadMode => _cvInReadMode != null;
-    public GameObject HeldObject => _held;
 }
