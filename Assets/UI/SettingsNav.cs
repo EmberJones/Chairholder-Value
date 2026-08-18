@@ -11,7 +11,6 @@ public class SettingsNav : MonoBehaviour
         GraphicsGroup.SetActive(true);
         AudioGroup.SetActive(false);
         ControllsGroup.SetActive(false);
-        this.gameObject.SetActive(false);
     }
 
     public void OnCloseButtonClicked()
