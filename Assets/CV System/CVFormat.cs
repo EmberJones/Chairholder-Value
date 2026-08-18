@@ -17,4 +17,5 @@ public class CVFormat : ScriptableObject
              "shown to the player as feedback after they pick, e.g. 'No section headings', " +
              "'Inconsistent dates', 'Unprofessional contact email'.")]
     public List<string> Notes = new List<string>();
+    public Sprite DeskSprite;
 }

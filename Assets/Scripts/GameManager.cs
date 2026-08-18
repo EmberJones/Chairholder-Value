@@ -1,79 +1,71 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton
-
     public static GameManager Instance { get; private set; }
-
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
 
-    // State
-
-    public enum GameState { Idle, CVOpen, Stamped, Submitted }
-
+    public enum GameState { Idle, CVOpen, Stamped, Submitted, RoundComplete }
     [Header("State (read-only in inspector)")]
     [SerializeField] private GameState _currentState = GameState.Idle;
     public GameState CurrentState => _currentState;
 
-    // CV queue
+    [Header("Round Config")]
+    [SerializeField] private JobRole currentRole;
 
     [Header("CV Queue")]
-    [SerializeField] private List<CVObject> cvQueue = new();   // Drag CV GameObjects in here in the inspector
+    [SerializeField] private List<CVObject> cvQueue = new();
     private int _currentCVIndex = 0;
-
     public CVObject CurrentCV => (_currentCVIndex < cvQueue.Count)
         ? cvQueue[_currentCVIndex]
         : null;
 
-    // Scoring
-
-    [Header("Scoring")]
-    [SerializeField] private int _score = 0;
-    [SerializeField] private int _correctDecisions = 0;
-    [SerializeField] private int _incorrectDecisions = 0;
-
-    public int Score => _score;
-    public int CorrectDecisions => _correctDecisions;
-    public int IncorrectDecisions => _incorrectDecisions;
-
-    // Events — wire these up in the inspector or subscribe in code
+    private readonly List<CVObject> _submittedCVs = new();
 
     [Header("Events")]
     public UnityEvent<CVObject> onCVStamped;
-    public UnityEvent<CVObject, bool> onCVSubmitted;  // bool = was decision correct
-    public UnityEvent onAllCVsComplete;
-
-    // Fax machine
+    public UnityEvent<CVObject> onCVSubmitted;
+    public UnityEvent<RoundSummary> onRoundComplete;
 
     [Header("References")]
     [SerializeField] private FaxMachine faxMachine;
     [SerializeField] private PlayerController playerController;
 
-
     void Start()
     {
+        ScoreQueue();
         ActivateCurrentCV();
     }
 
-    // Called by CVObject when a stamp is applied
+    void ScoreQueue()
+    {
+        if (currentRole == null)
+        {
+            Debug.LogWarning("[GameManager] No JobRole assigned - cannot score CVs.");
+            return;
+        }
+
+        foreach (var cvObj in cvQueue)
+        {
+            if (cvObj.Data != null)
+                CVScorer.Score(cvObj.Data, currentRole);
+        }
+    }
 
     public void OnCVStamped(CVObject cv)
     {
         if (cv != CurrentCV) return;
         SetState(GameState.Stamped);
         onCVStamped?.Invoke(cv);
-
         faxMachine?.SetReady(true);
     }
-
-    // Called by FaxMachine when the player clicks it with a stamped CV
 
     public void SubmitCurrentCV()
     {
@@ -82,23 +74,16 @@ public class GameManager : MonoBehaviour
 
         SetState(GameState.Submitted);
 
-        // Score the decision
-        bool correct = EvaluateDecision(cv);
-        if (correct) _correctDecisions++;
-        else _incorrectDecisions++;
+        _submittedCVs.Add(cv);
+        onCVSubmitted?.Invoke(cv);
 
-        _score += correct ? 100 : -50;
+        RemoveFromDesk(cv); 
 
-        onCVSubmitted?.Invoke(cv, correct);
-
-        // Deactivate the submitted CV and move to the next
-        cv.gameObject.SetActive(false);
         _currentCVIndex++;
 
         if (_currentCVIndex >= cvQueue.Count)
         {
-            onAllCVsComplete?.Invoke();
-            Debug.Log($"Game complete. Score: {_score} | Correct: {_correctDecisions} | Wrong: {_incorrectDecisions}");
+            CompleteRound();
             return;
         }
 
@@ -107,6 +92,10 @@ public class GameManager : MonoBehaviour
         SetState(GameState.Idle);
     }
 
+    void RemoveFromDesk(CVObject cv)
+    {
+        cv.gameObject.SetActive(false);
+    }
 
     void ActivateCurrentCV()
     {
@@ -115,11 +104,57 @@ public class GameManager : MonoBehaviour
         SetState(GameState.Idle);
     }
 
-    bool EvaluateDecision(CVObject cv)
+    void CompleteRound()
     {
+        SetState(GameState.RoundComplete);
 
-        if (cv.Data == null) return true;
-        return cv.Data.meta.correctDecision == cv.Decision.ToString().ToLower();
+        var allData = _submittedCVs
+            .Where(cv => cv.Data != null)
+            .Select(cv => cv.Data)
+            .ToList();
+
+        var approvedCV = _submittedCVs.FirstOrDefault(cv => cv.Decision == StampType.Approve);
+
+        var summary = new RoundSummary();
+
+        if (allData.Count > 0 && approvedCV != null && approvedCV.Data != null)
+        {
+            summary.Result = CVRanker.Evaluate(allData, approvedCV.Data);
+            summary.HasApproval = true;
+        }
+        else
+        {
+            // Nobody was approved this round - no RoundResult to give, boss dialogue should handle this case separately
+            summary.HasApproval = false;
+        }
+
+        var ranked = CVRanker.Rank(allData);
+        var bestCV = ranked.FirstOrDefault();
+
+        foreach (var cv in _submittedCVs)
+        {
+            if (cv.Data == null) continue;
+
+            bool shouldApprove = cv.Data == bestCV;
+            bool playerApproved = cv.Decision == StampType.Approve;
+            bool correct = shouldApprove == playerApproved;
+
+            summary.Entries.Add(new RoundSummary.Entry
+            {
+                CV = cv,
+                WasCorrect = correct
+            });
+
+            if (correct) summary.CorrectCount++;
+            else summary.IncorrectCount++;
+        }
+
+        Debug.Log(summary.HasApproval
+            ? $"[GameManager] Round complete. Approved '{summary.Result.PickedCV.CVName}' - {summary.Result.Rating} (rank {summary.Result.PickedRank}/{summary.Result.TotalCandidates})"
+            : "[GameManager] Round complete. No CV was approved.");
+
+        onRoundComplete?.Invoke(summary);
+        // TODO: hand `summary` to  boss-dialogue system here
     }
 
     void SetState(GameState newState)
@@ -128,7 +163,22 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] State -> {newState}");
     }
 
-
-
     public bool CanSubmit => CurrentCV != null && CurrentCV.IsStamped;
+}
+
+[System.Serializable]
+public class RoundSummary
+{
+    public bool HasApproval;        
+    public RoundResult Result;      
+    public int CorrectCount;
+    public int IncorrectCount;
+    public List<Entry> Entries = new List<Entry>();
+
+    [System.Serializable]
+    public struct Entry
+    {
+        public CVObject CV;
+        public bool WasCorrect;
+    }
 }

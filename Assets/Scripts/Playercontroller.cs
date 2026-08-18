@@ -14,11 +14,6 @@ public class PlayerController : MonoBehaviour
     [Header("Double-Click")]
     [SerializeField] private float doubleClickThreshold = 0.35f;
 
-    [Header("Read Mode")]
-    [SerializeField] private float readModeZ = -5f;
-    [SerializeField] private float readModeSpeed = 8f;
-    [SerializeField] private Vector2 readModeScreenCenter = new Vector2(0.5f, 0.55f);
-
     private Camera _cam;
 
     // Held state
@@ -190,26 +185,16 @@ public class PlayerController : MonoBehaviour
         _heldIsStamp = false;
     }
 
-    // Read mode
-
     void EnterReadMode(CVObject cv)
     {
         _cvInReadMode = cv;
-
-        Vector3 viewportPoint = new Vector3(
-            readModeScreenCenter.x,
-            readModeScreenCenter.y,
-            _cam.transform.position.z * -1f + readModeZ);
-        Vector3 targetPos = _cam.ViewportToWorldPoint(viewportPoint);
-        targetPos.z = readModeZ;
-
-        cv.EnterReadMode(targetPos, readModeSpeed, ReadModeSortOrderBoost);
+        CVDetailUI.Instance.Open(cv);
     }
 
     void ExitReadMode()
     {
         if (_cvInReadMode == null) return;
-        _cvInReadMode.ExitReadMode(readModeSpeed);
+        CVDetailUI.Instance.Close();
         _cvInReadMode = null;
         _lastClickTarget = null;
     }

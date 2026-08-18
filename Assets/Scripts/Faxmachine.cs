@@ -4,7 +4,7 @@ using UnityEngine;
 public class FaxMachine : MonoBehaviour
 {
     [Header("Visuals")]
-    [SerializeField] private SpriteRenderer readyIndicator;   // Optional light/glow sprite
+    [SerializeField] private SpriteRenderer readyIndicator;   
     [SerializeField] private Color readyColor = Color.green;
     [SerializeField] private Color notReadyColor = Color.red;
 
