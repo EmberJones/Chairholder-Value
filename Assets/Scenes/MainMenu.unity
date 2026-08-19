@@ -1283,6 +1283,10 @@ PrefabInstance:
       value: MainMenuCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1633645659811565408, guid: 7f5f47228bb864a469899cbc85904980, type: 3}
+      propertyPath: GameSceneName
+      value: DeskTestScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633645659811565408, guid: 7f5f47228bb864a469899cbc85904980, type: 3}
       propertyPath: SettingsCanvas
       value: 
       objectReference: {fileID: 1267363780}
