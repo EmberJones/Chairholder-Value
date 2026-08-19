@@ -17,7 +17,11 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState => _currentState;
 
     [Header("Round Config")]
-    [SerializeField] private JobRole currentRole;
+    public JobRole currentRole;
+    [SerializeField] private CVGenerator Gen;
+    [SerializeField] private int CVCount;
+    [SerializeField] private GameObject CVPrefab;
+    [SerializeField] private Transform CVSpawnPoint;
     //[SerializeField] private CVSpawner spawner;
 
     [Header("CV Batch")]
@@ -31,6 +35,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        allCVs.Clear();
+        var CVDataBatch = Gen.GenerateBatch(currentRole, CVCount, 5);
+
+        foreach (GeneratedCV cv in CVDataBatch)
+        {
+            GameObject CV = Instantiate(CVPrefab, CVSpawnPoint.position, CVSpawnPoint.rotation);
+            CVObject CVO = CV.GetComponent<CVObject>();
+            CVO.SetData(cv);
+            allCVs.Add(CVO);
+        }
+
         // Spawn in CVs and assign CV objects
         ScoreBatch();
     }
