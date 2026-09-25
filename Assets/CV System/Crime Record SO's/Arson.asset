@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2e75d840215c84a98b919d298a4e10, type: 3}
+  m_Name: Arson
+  m_EditorClassIdentifier: Assembly-CSharp::CriminalRecordEntryDefinition
+  DisplayText: Arson
+  Tags:
+  - {fileID: 11400000, guid: e7933527f21313a4a803a503e4212619, type: 2}
+  - {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
+  - {fileID: 11400000, guid: 310928ab739838e4a820f71aedd20ff9, type: 2}
+  - {fileID: 11400000, guid: b51de0a8058858042ba502a37840e82c, type: 2}
+  - {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
+  SeverityScore: 0.63
+  YearsAgo: 3

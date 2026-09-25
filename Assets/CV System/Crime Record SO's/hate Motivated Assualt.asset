@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2e75d840215c84a98b919d298a4e10, type: 3}
+  m_Name: hate Motivated Assualt
+  m_EditorClassIdentifier: Assembly-CSharp::CriminalRecordEntryDefinition
+  DisplayText: Hate Motivated Assualt
+  Tags:
+  - {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
+  - {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
+  - {fileID: 11400000, guid: f051bceca3ec40b49af301553b564c7d, type: 2}
+  SeverityScore: 0.32
+  YearsAgo: 6

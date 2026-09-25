@@ -15,22 +15,35 @@ public class CVGenerator : MonoBehaviour
     [Tooltip("Optional flavor names for candidates. If empty, candidates are labeled 'Candidate A/B/C...'.")]
     public List<string> CandidateNamePool = new List<string>();
 
+    [Tooltip("The pool of possible offenses a candidate might have on their record. Shared across all roles - " +
+             "impact varies per role via JobRole.CriminalTagWeights, same pattern as EntryPool.")]
+    public List<CriminalRecordEntryDefinition> CriminalRecordPool = new List<CriminalRecordEntryDefinition>();
+
     [Header("Generation Defaults")]
     [Range(2, 8)]
     public int DefaultBatchSize = 4;
     [Range(3, 7)]
     public int DefaultEntriesPerCV = 6;
 
+    [Range(0f, 1f)]
+    [Tooltip("Chance (0-1) that any given candidate has a criminal record at all. Most candidates should be " +
+             "clean, so keep this low (e.g. 0.2-0.3 = 20-30% of candidates have 1+ offenses).")]
+    public float CriminalRecordChance = 0.25f;
+
+    [Range(1, 3)]
+    [Tooltip("Max number of offenses a candidate with a record can have (actual count is randomized between 1 and this).")]
+    public int MaxOffensesPerRecord = 2;
+
     //The relevance threshold above which an entry is considered "relevant" to a role for generation-bucketing purposes.
     private const float RelevanceThreshold = 0.15f;
 
     public List<GeneratedCV> GenerateBatch(JobRole role, int? batchSize = null, int? entriesPerCV = null)
     {
-        return GenerateBatch(role, EntryPool, FormatProfiles, CandidateNamePool,
-            batchSize ?? DefaultBatchSize, entriesPerCV ?? DefaultEntriesPerCV);
+        return GenerateBatch(role, EntryPool, FormatProfiles, CandidateNamePool, CriminalRecordPool,
+            batchSize ?? DefaultBatchSize, entriesPerCV ?? DefaultEntriesPerCV, CriminalRecordChance, MaxOffensesPerRecord);
     }
 
-    public static List<GeneratedCV> GenerateBatch(JobRole Role, List<CVEntry> EntryPool, List<CVFormat> FormatPool, List<string> CandidateNamePool, int BatchSize, int EntriesPerCV)
+    public static List<GeneratedCV> GenerateBatch(JobRole Role, List<CVEntry> EntryPool, List<CVFormat> FormatPool, List<string> CandidateNamePool, List<CriminalRecordEntryDefinition> CriminalRecordPool, int BatchSize, int EntriesPerCV, float CriminalRecordChance, int MaxOffensesPerRecord)
     {
         var batch = new List<GeneratedCV>();
 
@@ -49,7 +62,7 @@ public class CVGenerator : MonoBehaviour
         for (int i = 0; i < BatchSize; i++)
         {
             float tier = BatchSize > 1 ? (float)i / (BatchSize - 1) : 1f;
-            var CV = GenerateSingleCV(Role, RelevantPool, FillerPool, FormatPool, EntriesPerCV, tier);
+            var CV = GenerateSingleCV(Role, RelevantPool, FillerPool, FormatPool, CriminalRecordPool, EntriesPerCV, tier, CriminalRecordChance, MaxOffensesPerRecord);
             CV.CVName = PickCandidateName(CandidateNamePool, i);
             batch.Add(CV);
         }
@@ -60,7 +73,7 @@ public class CVGenerator : MonoBehaviour
     }
 
             // relevance is the rating between 0 and 1 where 1 is perfectly suited for the Role, and 0 is unsuited for the role
-    private static GeneratedCV GenerateSingleCV(JobRole Role, List<CVEntry> RelevantPool, List <CVEntry> FillerPool, List<CVFormat> FormatPool, int EntryCountPerCV, float Relevance)
+    private static GeneratedCV GenerateSingleCV(JobRole Role, List<CVEntry> RelevantPool, List <CVEntry> FillerPool, List<CVFormat> FormatPool, List<CriminalRecordEntryDefinition> CriminalRecordPool, int EntryCountPerCV, float Relevance, float CriminalRecordChance, int MaxOffensesPerRecord)
     {
         var CV = new GeneratedCV();
 
@@ -82,6 +95,17 @@ public class CVGenerator : MonoBehaviour
         CV.Entries.AddRange(ChosenFiller);
 
         CV.FormatProfile = PickFormatForTier(FormatPool, Relevance);
+
+        CV.CriminalRecordEntries = GenerateCriminalRecord(CriminalRecordPool, CriminalRecordChance, MaxOffensesPerRecord);
+
+        CV.BackgroundCheckCode = BackgroundCheckCodeGenerator.GenerateUniqueCode();
+
+        BackgroundCheckRegistry.Register(CV.BackgroundCheckCode, new BackgroundCheckResult
+        {
+            CandidateName = CV.CVName,
+            HasRecord = CV.CriminalRecordEntries.Count > 0,
+            Offenses = CV.CriminalRecordEntries
+        });
 
         return CV;
     }
@@ -123,5 +147,23 @@ public class CVGenerator : MonoBehaviour
             int j = Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
         }
+    }
+
+    private static List<CriminalRecordEntryDefinition> GenerateCriminalRecord(List<CriminalRecordEntryDefinition> CriminalRecordPool, float CriminalRecordChance, int MaxOffensesPerRecord)
+    {
+        var Record = new List<CriminalRecordEntryDefinition>();
+
+        if (CriminalRecordPool == null || CriminalRecordPool.Count == 0) return Record;
+        if (Random.value >= CriminalRecordChance) return Record; // clean criminal record
+
+        int OffenseCount = Random.Range(1, MaxOffensesPerRecord + 1);
+        Record.AddRange(TakeRandomDistinct(CriminalRecordPool, OffenseCount));
+        return Record;
+    }
+
+    private static List<T> TakeRandomDistinct<T>(List<T> Pool, int Count)
+    {
+        if (Count <= 0 || Pool == null || Pool.Count == 0) return new List<T>();
+        return Pool.OrderBy(_ => Random.value).Take(Mathf.Min(Count, Pool.Count)).ToList();
     }
 }

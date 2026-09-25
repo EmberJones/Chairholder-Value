@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2e75d840215c84a98b919d298a4e10, type: 3}
+  m_Name: Identity Theft
+  m_EditorClassIdentifier: Assembly-CSharp::CriminalRecordEntryDefinition
+  DisplayText: Identity Theft
+  Tags:
+  - {fileID: 11400000, guid: a2a4a263661d50d448095eb995a7eb3f, type: 2}
+  - {fileID: 11400000, guid: e2d814d1a7de1104890f45f1f5657626, type: 2}
+  - {fileID: 11400000, guid: 126267527b4a5b542bfee26e4ad1b882, type: 2}
+  - {fileID: 11400000, guid: 973819aad069bcb48a24ea1c9761f72d, type: 2}
+  - {fileID: 11400000, guid: b001cae64b128fb4485d3d08c7b10b0a, type: 2}
+  SeverityScore: 0.32
+  YearsAgo: 7

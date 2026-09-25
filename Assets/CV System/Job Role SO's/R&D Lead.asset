@@ -42,3 +42,26 @@ MonoBehaviour:
   - Category: 3
     Weight: 1.09
   PreferredMinYearsExperience: 10
+  CriminalTagWeights:
+  - Tag: {fileID: 11400000, guid: d796903d4e3664f4eb52e3488ea30495, type: 2}
+    Weight: 0.373
+  - Tag: {fileID: 11400000, guid: cfb4e91dd90f1e84f8b39b5f9fa1c389, type: 2}
+    Weight: 0.176
+  - Tag: {fileID: 11400000, guid: 7c8903cd2eabccc498af025f1aca8744, type: 2}
+    Weight: 0.692
+  - Tag: {fileID: 11400000, guid: e7933527f21313a4a803a503e4212619, type: 2}
+    Weight: 0.242
+  - Tag: {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
+    Weight: 0.791
+  - Tag: {fileID: 11400000, guid: 4021a15dbb9cfa442843938e4c5b99ac, type: 2}
+    Weight: 0.951
+  - Tag: {fileID: 11400000, guid: 973819aad069bcb48a24ea1c9761f72d, type: 2}
+    Weight: 0.415
+  - Tag: {fileID: 11400000, guid: 310928ab739838e4a820f71aedd20ff9, type: 2}
+    Weight: 0.284
+  - Tag: {fileID: 11400000, guid: 9da04005fa988194f9a503ecda98045c, type: 2}
+    Weight: 0.768
+  - Tag: {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
+    Weight: 0.819
+  - Tag: {fileID: 11400000, guid: b001cae64b128fb4485d3d08c7b10b0a, type: 2}
+    Weight: 0.162

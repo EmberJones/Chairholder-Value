@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -48,6 +49,21 @@ public class GameManager : MonoBehaviour
 
         // Spawn in CVs and assign CV objects
         ScoreBatch();
+
+        foreach (GeneratedCV CV in CVDataBatch)
+        {
+            try
+            {
+                Debug.Log(CV.CVName + "\tCriminal History: " + CV.CriminalRecordEntries.First().name + "\t" + CV.BackgroundCheckCode);
+                
+                BackgroundCheckRegistry.TryLookup(CV.BackgroundCheckCode, out BackgroundCheckResult R);     // how to get the results from the background check
+                Debug.Log("BCR: " + R.CandidateName + "\t" + R.HasRecord + "\t" + R.Offenses.Count);        // out putting the Candidate name, if they have a record (sanity check always true if they have committed any crimes) and the number of crimes they have committed
+            }
+            catch (InvalidOperationException)   // they don't have any elements in their Criminal Record Entries
+            {
+                Debug.Log(CV.CVName + "\tNo Criminal History\t" + CV.BackgroundCheckCode);
+            }
+        }
     }
 
     void ScoreBatch()

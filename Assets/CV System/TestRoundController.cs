@@ -10,7 +10,8 @@ public class TestRoundController : MonoBehaviour
     [Header("Round Config")]
     public JobRole CurrentRole;
     [Range(0f, 1f)] public float ContentWeight = 0.6f;
-    [Range(0f, 1f)] public float FormatWeight = 0.4f;
+    [Range(0f, 1f)] public float CrimeWeight = 0.3f;
+    [Range(0f, 1f)] public float FormatWeight = 0.1f;
 
     [SerializeField] private List<GeneratedCV> CurrentBatch;
 
@@ -18,7 +19,7 @@ public class TestRoundController : MonoBehaviour
     {
         CurrentRole = Role;
         CurrentBatch = Generator.GenerateBatch(Role);
-        CVScorer.ScoreAll(CurrentBatch, Role, ContentWeight, FormatWeight);
+        CVScorer.ScoreAll(CurrentBatch, Role, ContentWeight, CrimeWeight, FormatWeight);
         LogBatch(CurrentBatch);
         return CurrentBatch;
     }
@@ -54,5 +55,10 @@ public class TestRoundController : MonoBehaviour
                                        "\nFINAL SCORE: " + p.FinalScore +
                                        "\nEntry 1: " + p.Entries.First().name);
         }
+    }
+
+    public bool RunBackgroundCheck(string Code, out BackgroundCheckResult Result)
+    {
+        return BackgroundCheckRegistry.TryLookup(Code, out Result);
     }
 }

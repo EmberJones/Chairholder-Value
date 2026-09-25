@@ -1485,8 +1485,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83744f2316ebb46419622d23fbf97085, type: 2}
   - {fileID: 11400000, guid: 8c738950c4701a644a056a2b3d5bf36d, type: 2}
   CandidateNamePool: []
+  CriminalRecordPool:
+  - {fileID: 11400000, guid: d51ceff8b01933741b47bbe632e39633, type: 2}
+  - {fileID: 11400000, guid: 7660c116e09905c41bf267a4e1015cb4, type: 2}
+  - {fileID: 11400000, guid: 0634b5c4cb7b6b04e8182f43e15a476f, type: 2}
+  - {fileID: 11400000, guid: 72821bcc786b2b147bbc6787c2b51ca9, type: 2}
+  - {fileID: 11400000, guid: d3936b6cf8b705d42ba8bd362fbc13e5, type: 2}
+  - {fileID: 11400000, guid: 7e45d6985988d374481a1732c1fa8b7a, type: 2}
+  - {fileID: 11400000, guid: 102e67dc40ecec349bffc730a0ea1b3d, type: 2}
+  - {fileID: 11400000, guid: 421408cf5b1c9e44587a82b1c17d51b8, type: 2}
+  - {fileID: 11400000, guid: 851c65f807636bd488f50d29872ac817, type: 2}
+  - {fileID: 11400000, guid: 34aa24c8088cee641bfda11c7ecaa73e, type: 2}
+  - {fileID: 11400000, guid: d79afb0cf7610094abd1468b7e0d1ea7, type: 2}
+  - {fileID: 11400000, guid: 27f5ecb150657454abed8cffdd1894e0, type: 2}
+  - {fileID: 11400000, guid: fe38b05db33460446b6353c16d6dc26d, type: 2}
   DefaultBatchSize: 3
   DefaultEntriesPerCV: 4
+  CriminalRecordChance: 0.25
+  MaxOffensesPerRecord: 2
 --- !u!4 &1183373692
 Transform:
   m_ObjectHideFlags: 0
@@ -1668,13 +1684,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445298364}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.80601394, y: -0.15748419, z: 0.1638875, w: 0.5465173}
+  m_LocalRotation: {x: 0.49147853, y: -0.41553965, z: 0.76509213, w: 0.02024354}
   m_LocalPosition: {x: 0.36993, y: 16.36275, z: 22.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 111.153, y: -14.779999, z: 11.953003}
+  m_LocalEulerAnglesHint: {x: 139.023, y: -103.134, z: 29.998993}
 --- !u!1 &1453604711
 GameObject:
   m_ObjectHideFlags: 0
