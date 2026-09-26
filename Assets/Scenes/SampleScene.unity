@@ -709,8 +709,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 83744f2316ebb46419622d23fbf97085, type: 2}
   - {fileID: 11400000, guid: 8c738950c4701a644a056a2b3d5bf36d, type: 2}
   CandidateNamePool: []
+  CriminalRecordPool: []
   DefaultBatchSize: 3
   DefaultEntriesPerCV: 4
+  CriminalRecordChance: 0.25
+  MaxOffensesPerRecord: 2
 --- !u!4 &697341032
 Transform:
   m_ObjectHideFlags: 0
@@ -863,17 +866,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1271034502 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5586010292115026450, guid: 5656f02224f8ebd4a85f6f6d699baffc, type: 3}
-  m_PrefabInstance: {fileID: 3223584339651093574}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc4269b7d703b74c9f925d4b2bff40f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &1604806018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,34 +1031,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _currentState: 0
-  Generator: {fileID: 697341031}
-  CVPrefab: {fileID: 1397300773956954726, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
-  CVSpawnPosition: {fileID: 1611862010}
   currentRole: {fileID: 11400000, guid: 6c4bba191c3520a42ba4e16203b64442, type: 2}
-  cvQueue:
-  - {fileID: 0}
+  Gen: {fileID: 0}
+  CVCount: 0
+  CVPrefab: {fileID: 1397300773956954726, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
+  CVSpawnPoint: {fileID: 0}
+  allCVs: []
   onCVStamped:
-    m_PersistentCalls:
-      m_Calls: []
-  onCVSubmitted:
     m_PersistentCalls:
       m_Calls: []
   onRoundComplete:
     m_PersistentCalls:
       m_Calls: []
-  faxMachine: {fileID: 1853214808}
-  playerController: {fileID: 1271034502}
---- !u!114 &1853214808 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1144770443961020398, guid: 28c002d9ef2f3a8439b04149d1f8c258, type: 3}
-  m_PrefabInstance: {fileID: 5118964300278451216}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2d958ac2559bbd4181ef5932f511815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FaxMachine
 --- !u!1 &1856752535
 GameObject:
   m_ObjectHideFlags: 0
