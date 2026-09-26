@@ -111,6 +111,9 @@ public class GameManager : MonoBehaviour
             : "[GameManager] Round complete. No CV was approved.");
 
         onRoundComplete?.Invoke(summary);
+        bool successfulHire = summary.HasApproval && summary.Result.Rating == PickRating.BestChoice;
+        MetaProgressManager.Instance?.ReportHireResult(currentRole, successfulHire);
+
         // TODO: hand `summary` to your boss-dialogue system here
     }
 }

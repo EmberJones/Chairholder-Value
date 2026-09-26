@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
                     if (cv != null && stamp != null)
                     {
                         cv.ApplyStamp(stamp.StampType);
+                        stamp.PlayStampAnimation();
                         // Stamp is used, deselect it
                         Deselect();
                         return;
