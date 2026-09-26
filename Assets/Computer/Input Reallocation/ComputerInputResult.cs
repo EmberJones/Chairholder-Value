@@ -13,6 +13,8 @@ public class ComputerInputResult : MonoBehaviour
     void Start()
     {
         Raycaster = GetComponent<GraphicRaycaster>();
+
+        Raycaster.enabled = false;
     }
 
     // Update is called once per frame
@@ -39,7 +41,8 @@ public class ComputerInputResult : MonoBehaviour
             if (SendMouseDown)
             {
                 ExecuteEvents.Execute(result.gameObject, MouseEvent, ExecuteEvents.pointerDownHandler);
-            } else if (SendMouseUp)
+            }
+            else if (SendMouseUp)
             {
                 ExecuteEvents.Execute(result.gameObject, MouseEvent, ExecuteEvents.pointerUpHandler);
                 ExecuteEvents.Execute(result.gameObject, MouseEvent, ExecuteEvents.pointerClickHandler);
