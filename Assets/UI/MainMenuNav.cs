@@ -26,7 +26,7 @@ public class MainMenuNav : MonoBehaviour
 
     public void OnPlayGameClicked()
     {
-        SceneManager.LoadScene(GameSceneName);
+        MetaProgressManager.Instance.StartGame();
     }
 
     public void OnSettingsClicked()

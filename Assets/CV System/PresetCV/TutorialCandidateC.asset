@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0618e7d404abb8e4ba50d67cc6dfa0db, type: 3}
+  m_Name: TutorialCandidateC
+  m_EditorClassIdentifier: Assembly-CSharp::PresetCV
+  CVName: Janet McCain
+  Entries:
+  - {fileID: 11400000, guid: a71358dd8a0fa8447b0ed7994ecbf869, type: 2}
+  - {fileID: 11400000, guid: 6d807774694f9f94f99f69b5c27ef388, type: 2}
+  - {fileID: 11400000, guid: 0c2701f70e56bef4c89c9a05548de615, type: 2}
+  FormatProfile: {fileID: 11400000, guid: 4b7ad61890325584ab1f41ca3ac4ddfd, type: 2}
