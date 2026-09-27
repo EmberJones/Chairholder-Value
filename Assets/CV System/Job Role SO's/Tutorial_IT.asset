@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012f73c7a49bef4408a13c347e263273, type: 3}
+  m_Name: Tutorial_IT
+  m_EditorClassIdentifier: Assembly-CSharp::JobRole
+  RoleTitle: IT and Tech Support
+  RoleDescription: Internal help agent the company can use to ensure smooth day to
+    day functioning.
+  TagWeights:
+  - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
+    Weight: 0.3
+  - Tag: {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
+    Weight: 0.4
+  - Tag: {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
+    Weight: 0.45
+  - Tag: {fileID: 11400000, guid: 295a1c45a9b784042abe09ef21b20f1a, type: 2}
+    Weight: 1
+  - Tag: {fileID: 11400000, guid: 889491e50bde78340a72ecaccd3fd141, type: 2}
+    Weight: 0.6
+  - Tag: {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
+    Weight: 0.1
+  - Tag: {fileID: 11400000, guid: e3cbe5d9bbcff834495d66dffa94cdd2, type: 2}
+    Weight: 0.5
+  CategoryWeights:
+  - Category: 0
+    Weight: 1.74
+  - Category: 1
+    Weight: 1.53
+  - Category: 2
+    Weight: 1.44
+  - Category: 3
+    Weight: 1.59
+  PreferredMinYearsExperience: 1
+  CriminalTagWeights:
+  - Tag: {fileID: 11400000, guid: d796903d4e3664f4eb52e3488ea30495, type: 2}
+    Weight: 0.242
+  - Tag: {fileID: 11400000, guid: d404d07da81e61e4e823d87b0cf7cc78, type: 2}
+    Weight: 0.11
+  - Tag: {fileID: 11400000, guid: a2a4a263661d50d448095eb995a7eb3f, type: 2}
+    Weight: 0.641
+  - Tag: {fileID: 11400000, guid: cfb4e91dd90f1e84f8b39b5f9fa1c389, type: 2}
+    Weight: 0.049
+  - Tag: {fileID: 11400000, guid: e2d814d1a7de1104890f45f1f5657626, type: 2}
+    Weight: 0.275
+  - Tag: {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
+    Weight: 0.951
+  - Tag: {fileID: 11400000, guid: 126267527b4a5b542bfee26e4ad1b882, type: 2}
+    Weight: 0.575
+  - Tag: {fileID: 11400000, guid: 310928ab739838e4a820f71aedd20ff9, type: 2}
+    Weight: 0.331
+  - Tag: {fileID: 11400000, guid: 9da04005fa988194f9a503ecda98045c, type: 2}
+    Weight: 0.721
+  - Tag: {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
+    Weight: 0.232
+  - Tag: {fileID: 11400000, guid: b001cae64b128fb4485d3d08c7b10b0a, type: 2}
+    Weight: 0.12
