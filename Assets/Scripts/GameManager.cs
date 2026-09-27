@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IRoundManager
 {
     public static GameManager Instance { get; private set; }
     void Awake()

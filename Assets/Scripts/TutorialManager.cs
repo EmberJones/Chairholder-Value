@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour, IRoundManager
 {
     public static TutorialManager Instance { get; private set; }
     void Awake()
@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
     public GameState CurrentState => _currentState;
 
     [Header("Round Config")]
-    public JobRole currentRole;                              // the tutorial's "IT Guy" JobRole
+    public JobRole currentRole;                              
 
     [Header("Preset CVs")]
     [Tooltip("Hand-authored CVs used instead of CVGenerator - order doesn't matter, spawn points below control layout.")]
@@ -25,7 +25,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Spawning")]
     [SerializeField] private GameObject CVPrefab;
-    [SerializeField] private Transform[] CVSpawnPoints;      // one per preset CV - keep this sized to match presetBatch
+    [SerializeField] private Transform[] CVSpawnPoints;      
 
     [Header("CV Batch")]
     [SerializeField] private List<CVObject> allCVs = new();
@@ -77,7 +77,6 @@ public class TutorialManager : MonoBehaviour
 
     public void OnCVStamped(CVObject cv) => onCVStamped?.Invoke(cv);
 
-    // Called by the fax machine, same as the main game's flow
     public void SubmitRound()
     {
         if (_currentState == GameState.RoundComplete) return;

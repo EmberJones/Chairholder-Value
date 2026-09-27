@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _currentState: 0
-  currentRole: {fileID: 11400000, guid: 6c4bba191c3520a42ba4e16203b64442, type: 2}
+  currentRole: {fileID: 11400000, guid: a0cafc30a8768164a9b132ecc007fc4d, type: 2}
   Gen: {fileID: 1183373691}
   CVCount: 3
   CVPrefab: {fileID: 1397300773956954726, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
