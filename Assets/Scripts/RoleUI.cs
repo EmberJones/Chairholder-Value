@@ -7,6 +7,9 @@ public class RoleUI : MonoBehaviour
     void Start()
     {
         TextMeshProUGUI RoleText = gameObject.GetComponent<TextMeshProUGUI>();
-        RoleText.text = GameManager.Instance.currentRole.RoleTitle;
+        if(GameManager.Instance != null)
+            RoleText.text = GameManager.Instance.currentRole.RoleTitle;
+        if(TutorialManager.Instance != null)
+            RoleText.text = TutorialManager.Instance.currentRole.RoleTitle;
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0618e7d404abb8e4ba50d67cc6dfa0db, type: 3}
+  m_Name: TutorialCandidateA
+  m_EditorClassIdentifier: Assembly-CSharp::PresetCV
+  CVName: 'Sonja Ekeh '
+  Entries:
+  - {fileID: 11400000, guid: f87e16e396b18da42b81e9e61bc28070, type: 2}
+  - {fileID: 11400000, guid: 7c0e9ca502e360f48a41493a8785c9c2, type: 2}
+  - {fileID: 11400000, guid: 3059047fff8401a47983ee442f70d173, type: 2}
+  FormatProfile: {fileID: 11400000, guid: 8c738950c4701a644a056a2b3d5bf36d, type: 2}
