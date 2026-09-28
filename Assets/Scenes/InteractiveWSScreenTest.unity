@@ -2186,7 +2186,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 970469419}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MailTest, Assembly-CSharp
         m_MethodName: SendMail
         m_Mode: 1
@@ -2812,65 +2812,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &970469418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 970469420}
-  - component: {fileID: 970469419}
-  - component: {fileID: 970469421}
-  m_Layer: 0
-  m_Name: test obj (DO NOT SHIP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &970469419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970469418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611f3c79a5b974e4986b48cb063beea7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MailTest
---- !u!4 &970469420
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970469418}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.26573, y: 0, z: 4030.9497}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &970469421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970469418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6c27c6113f6984a9129709c98abff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SendMailOnStart
-  mailTest: {fileID: 970469419}
-  times: 1
 --- !u!1 &991879696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5938,4 +5879,3 @@ SceneRoots:
   - {fileID: 1024338494}
   - {fileID: 2064130395}
   - {fileID: 550975819}
-  - {fileID: 970469420}

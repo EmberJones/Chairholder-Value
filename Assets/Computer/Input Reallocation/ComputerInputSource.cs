@@ -11,7 +11,7 @@ public class ComputerInputSource : MonoBehaviour
             Instance = this;
         } else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
