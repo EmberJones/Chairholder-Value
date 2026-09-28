@@ -10,52 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 012f73c7a49bef4408a13c347e263273, type: 3}
-  m_Name: Managers Assistant
+  m_Name: Nurse
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
-  RoleTitle: Managers Assistant
-  RoleDescription: someone capable of aiding a department manager in their day to
-    day operations.
+  RoleTitle: Nurse
+  RoleDescription: A person cabale of caring for the sick or injured of the company.
   TagWeights:
   - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
-    Weight: 0.46
+    Weight: 0.61
   - Tag: {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
-    Weight: 0.79
+    Weight: 0.39
   - Tag: {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
-    Weight: 0.35
+    Weight: 0.48
+  - Tag: {fileID: 11400000, guid: bace757e6496e6d4880a9934d4356722, type: 2}
+    Weight: 0.89
   - Tag: {fileID: 11400000, guid: b63a510bffb5e6e4e8d6b616993ac494, type: 2}
-    Weight: 0.5
+    Weight: 0.62
   - Tag: {fileID: 11400000, guid: dea83e705b8e23a4a9153242f823ed77, type: 2}
-    Weight: 0.85
-  - Tag: {fileID: 11400000, guid: e3cbe5d9bbcff834495d66dffa94cdd2, type: 2}
-    Weight: 0.32
-  - Tag: {fileID: 11400000, guid: dcd83de81746feb4481de0802843233a, type: 2}
-    Weight: 0.32
+    Weight: 0.41
   CategoryWeights:
   - Category: 0
-    Weight: 1.24
+    Weight: 1.85
+  - Category: 1
+    Weight: 1.56
   - Category: 3
-    Weight: 1.11
-  - Category: 2
-    Weight: 1.16
-  PreferredMinYearsExperience: 2
+    Weight: 1.32
+  PreferredMinYearsExperience: 1
   CriminalTagWeights:
-  - Tag: {fileID: 11400000, guid: d796903d4e3664f4eb52e3488ea30495, type: 2}
-    Weight: 0.382
-  - Tag: {fileID: 11400000, guid: d404d07da81e61e4e823d87b0cf7cc78, type: 2}
-    Weight: 0.589
   - Tag: {fileID: 11400000, guid: cfb4e91dd90f1e84f8b39b5f9fa1c389, type: 2}
-    Weight: 0.203
+    Weight: 0.855
   - Tag: {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
-    Weight: 1
-  - Tag: {fileID: 11400000, guid: 4021a15dbb9cfa442843938e4c5b99ac, type: 2}
-    Weight: 0.941
+    Weight: 0.732
   - Tag: {fileID: 11400000, guid: 973819aad069bcb48a24ea1c9761f72d, type: 2}
-    Weight: 0.284
-  - Tag: {fileID: 11400000, guid: 310928ab739838e4a820f71aedd20ff9, type: 2}
-    Weight: 0.42
+    Weight: 0.558
   - Tag: {fileID: 11400000, guid: 9da04005fa988194f9a503ecda98045c, type: 2}
-    Weight: 0.763
+    Weight: 0.848
   - Tag: {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
-    Weight: 0.763
+    Weight: 0.63
   - Tag: {fileID: 11400000, guid: b001cae64b128fb4485d3d08c7b10b0a, type: 2}
-    Weight: 0.167
+    Weight: 0.362
