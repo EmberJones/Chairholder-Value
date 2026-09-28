@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [System.Serializable]
-public class SpeakerVoice
+public class SpeakerProfile
 {
     public string speaker = "Boss";
+
+    [Header("Voice")]
     [Range(0.5f, 2f)] public float pitch = 0.8f;
     [Range(0f, 0.5f)] public float pitchVariation = 0.12f;
+
+    [Header("Look")]
+    public bool useCustomColours = true;
+    public Color frameColour = new Color32(255, 74, 74, 255);
+    public Color nameColour = new Color32(31, 10, 10, 255);
+    public Color textColour = new Color32(255, 128, 128, 255);
+    public Color hintColour = new Color32(255, 74, 74, 255);
+
+    [Header("Entrance")]
+    public bool bumpOnStart = true;
 }
 
 public class DialogueUI : MonoBehaviour
@@ -23,8 +36,23 @@ public class DialogueUI : MonoBehaviour
 
     [Header("Style")]
     [SerializeField] private RectTransform box;
+    [SerializeField] private Image frameImage;
+    [SerializeField] private Image nameTabImage;
     [SerializeField] private float slideDistance = 30f;
     [SerializeField] private float hintBlinkSpeed = 0.5f;
+
+    [Header("Default Colours")]
+    [SerializeField] private Color defaultFrameColour = new Color32(74, 255, 74, 255);
+    [SerializeField] private Color defaultNameColour = new Color32(10, 31, 10, 255);
+    [SerializeField] private Color defaultTextColour = new Color32(127, 255, 127, 255);
+    [SerializeField] private Color defaultHintColour = new Color32(74, 255, 74, 255);
+
+    [Header("Bump")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip bumpSound;
+    [SerializeField, Range(0f, 1f)] private float bumpVolume = 0.8f;
+    [SerializeField] private float bumpStrength = 14f;
+    [SerializeField] private float bumpDuration = 0.25f;
 
     [Header("Timing")]
     [SerializeField] private float fadeTime = 0.25f;
@@ -40,11 +68,14 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private int soundEveryNLetters = 1;
     [SerializeField] private float defaultPitch = 1f;
     [SerializeField] private float defaultPitchVariation = 0.12f;
-    [SerializeField] private List<SpeakerVoice> speakerVoices = new List<SpeakerVoice>();
+
+    [Header("Speakers")]
+    [SerializeField] private List<SpeakerProfile> speakers = new List<SpeakerProfile>();
 
     public bool IsPlaying { get; private set; }
 
     private Vector2 boxHomePosition;
+    private TMP_Text hintText;
     private float currentPitch;
     private float currentVariation;
 
@@ -52,6 +83,7 @@ public class DialogueUI : MonoBehaviour
     {
         Instance = this;
         if (box != null) boxHomePosition = box.anchoredPosition;
+        if (continueHint != null) hintText = continueHint.GetComponent<TMP_Text>();
         group.alpha = 0f;
         group.blocksRaycasts = false;
         if (continueHint != null) continueHint.SetActive(false);
@@ -73,13 +105,24 @@ public class DialogueUI : MonoBehaviour
     {
         IsPlaying = true;
         group.blocksRaycasts = true;
+
+        ApplyProfile(FindProfile(seq.lines[0].speaker));
+
         if (group.alpha < 0.01f) yield return new WaitForSecondsRealtime(openDelay);
         yield return Fade(group.alpha, 1f);
 
+        string lastSpeaker = null;
+
         foreach (DialogueLine line in seq.lines)
         {
+            SpeakerProfile profile = FindProfile(line.speaker);
+            ApplyProfile(profile);
             speakerText.text = line.speaker;
-            SetVoiceFor(line.speaker);
+
+            bool newSpeaker = !string.Equals(lastSpeaker, line.speaker, System.StringComparison.OrdinalIgnoreCase);
+            lastSpeaker = line.speaker;
+            if (newSpeaker && profile != null && profile.bumpOnStart) Bump();
+
             yield return TypeLine(ApplyTokens(line.text, tokens));
 
             if (continueHint != null) continueHint.SetActive(true);
@@ -135,20 +178,49 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    void SetVoiceFor(string speaker)
+    SpeakerProfile FindProfile(string speaker)
     {
-        currentPitch = defaultPitch;
-        currentVariation = defaultPitchVariation;
-
-        foreach (SpeakerVoice voice in speakerVoices)
+        foreach (SpeakerProfile profile in speakers)
         {
-            if (string.Equals(voice.speaker, speaker, System.StringComparison.OrdinalIgnoreCase))
-            {
-                currentPitch = voice.pitch;
-                currentVariation = voice.pitchVariation;
-                return;
-            }
+            if (string.Equals(profile.speaker, speaker, System.StringComparison.OrdinalIgnoreCase))
+                return profile;
         }
+        return null;
+    }
+
+    void ApplyProfile(SpeakerProfile profile)
+    {
+        bool custom = profile != null && profile.useCustomColours;
+
+        Color frame = custom ? profile.frameColour : defaultFrameColour;
+        if (frameImage != null) frameImage.color = frame;
+        if (nameTabImage != null) nameTabImage.color = frame;
+
+        speakerText.color = custom ? profile.nameColour : defaultNameColour;
+        bodyText.color = custom ? profile.textColour : defaultTextColour;
+        if (hintText != null) hintText.color = custom ? profile.hintColour : defaultHintColour;
+
+        currentPitch = profile != null ? profile.pitch : defaultPitch;
+        currentVariation = profile != null ? profile.pitchVariation : defaultPitchVariation;
+    }
+
+    void Bump()
+    {
+        if (sfxSource != null && bumpSound != null) sfxSource.PlayOneShot(bumpSound, bumpVolume);
+        if (box != null) StartCoroutine(Shake());
+    }
+
+    IEnumerator Shake()
+    {
+        float t = 0f;
+        while (t < bumpDuration)
+        {
+            t += SafeDeltaTime();
+            float strength = bumpStrength * (1f - t / bumpDuration);
+            box.anchoredPosition = boxHomePosition + Random.insideUnitCircle * strength;
+            yield return null;
+        }
+        box.anchoredPosition = boxHomePosition;
     }
 
     void PlayVoice(char c)
@@ -185,11 +257,10 @@ public class DialogueUI : MonoBehaviour
 
     static bool ContinuePressed()
     {
-        Mouse mouse = Mouse.current;
         Keyboard keyboard = Keyboard.current;
-        return (mouse != null && mouse.leftButton.wasPressedThisFrame) ||
-               (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame ||
-                                     keyboard.enterKey.wasPressedThisFrame));
+        return keyboard != null && (keyboard.spaceKey.wasPressedThisFrame ||
+                                    keyboard.enterKey.wasPressedThisFrame ||
+                                    keyboard.numpadEnterKey.wasPressedThisFrame);
     }
 
     static string ApplyTokens(string text, Dictionary<string, string> tokens)
