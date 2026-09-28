@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012f73c7a49bef4408a13c347e263273, type: 3}
+  m_Name: Nurse
+  m_EditorClassIdentifier: Assembly-CSharp::JobRole
+  RoleTitle: Nurse
+  RoleDescription: A person cabale of caring for the sick or injured of the company.
+  TagWeights:
+  - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
+    Weight: 0.61
+  - Tag: {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
+    Weight: 0.39
+  - Tag: {fileID: 11400000, guid: 78b0ac55ae2fd994e9a7933d18f02438, type: 2}
+    Weight: 0.48
+  - Tag: {fileID: 11400000, guid: bace757e6496e6d4880a9934d4356722, type: 2}
+    Weight: 0.89
+  - Tag: {fileID: 11400000, guid: b63a510bffb5e6e4e8d6b616993ac494, type: 2}
+    Weight: 0.62
+  - Tag: {fileID: 11400000, guid: dea83e705b8e23a4a9153242f823ed77, type: 2}
+    Weight: 0.41
+  CategoryWeights:
+  - Category: 0
+    Weight: 1.85
+  - Category: 1
+    Weight: 1.56
+  - Category: 3
+    Weight: 1.32
+  PreferredMinYearsExperience: 1
+  CriminalTagWeights:
+  - Tag: {fileID: 11400000, guid: cfb4e91dd90f1e84f8b39b5f9fa1c389, type: 2}
+    Weight: 0.855
+  - Tag: {fileID: 11400000, guid: 5da28f9a3553cc040902b57e4f10d395, type: 2}
+    Weight: 0.732
+  - Tag: {fileID: 11400000, guid: 973819aad069bcb48a24ea1c9761f72d, type: 2}
+    Weight: 0.558
+  - Tag: {fileID: 11400000, guid: 9da04005fa988194f9a503ecda98045c, type: 2}
+    Weight: 0.848
+  - Tag: {fileID: 11400000, guid: fe330f8140508d94a807806b9c3ab82a, type: 2}
+    Weight: 0.63
+  - Tag: {fileID: 11400000, guid: b001cae64b128fb4485d3d08c7b10b0a, type: 2}
+    Weight: 0.362

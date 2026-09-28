@@ -11,7 +11,9 @@ public class StampObject : DraggableObject
     [SerializeField] private Animator animator;  
     [SerializeField] private string stampTriggerName = "Stamp";
 
-
+    [Header("Upright Correction")]
+    [SerializeField] private Vector3 uprightEuler = Vector3.zero; 
+    public Quaternion UprightRotation => Quaternion.Euler(uprightEuler);
     public StampType StampType => stampType;
 
     protected override void OnPickedUp() => base.OnPickedUp();

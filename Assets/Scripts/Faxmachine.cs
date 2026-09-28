@@ -13,7 +13,7 @@ public class FaxMachine : MonoBehaviour
 
     void Start()
     {
-        _roundManager = GameManager.Instance as IRoundManager;
+        _roundManager = AdaptiveGameManager.Instance as IRoundManager;
         if (_roundManager == null)
             _roundManager = TutorialManager.Instance as IRoundManager;
 

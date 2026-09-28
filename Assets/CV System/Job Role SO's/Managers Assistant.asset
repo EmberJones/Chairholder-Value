@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Managers Assistant
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
   RoleTitle: Managers Assistant
-  RoleDescription: A manager is looking for a new assistant to aid in their day to
+  RoleDescription: someone capable of aiding a department manager in their day to
     day operations.
   TagWeights:
   - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}

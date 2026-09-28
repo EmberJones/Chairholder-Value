@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MailManager : MonoBehaviour
@@ -27,6 +28,12 @@ public class MailManager : MonoBehaviour
     public void ReceiveMail(MailMessage Mail)       // call this to give mail to the player
     {
         messages.Insert(0, Mail); // newest first
+
+        while (messages.Count > 8)
+        {
+            messages.Remove(messages.Last());
+        }
+
         OnMailReceived?.Invoke(Mail);
         OnMailListChanged?.Invoke();
     }

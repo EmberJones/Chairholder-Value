@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Janitor
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
   RoleTitle: Janitor
-  RoleDescription: A role fit for someone with keen eye for detail and is okay with
-    working nights.
+  RoleDescription: someone with a keen eye for detail and is okay with working nights.
   TagWeights:
   - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
     Weight: 0.92

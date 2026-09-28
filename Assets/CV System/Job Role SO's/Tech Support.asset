@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Tech Support
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
   RoleTitle: IT and Tech Support
-  RoleDescription: Internal help agent the company can use to ensure smooth day to
-    day functioning.
+  RoleDescription: an internal help agent the company can use to ensure smooth day
+    to day functioning.
   TagWeights:
   - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
     Weight: 0.23

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: R&D Lead
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
   RoleTitle: Research and Development Head
-  RoleDescription: The sole person in charge of the R&D department, needs to be familiar
-    with the workflow and dealing with office disputes/complaints
+  RoleDescription: someone who is familiar with the R&D workflow and is capable of
+    managing dept. disputes.
   TagWeights:
   - Tag: {fileID: 11400000, guid: 170979e3e9be5e744ae63e5945ee5e22, type: 2}
     Weight: 0.28

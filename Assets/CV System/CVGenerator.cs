@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class CVGenerator : MonoBehaviour
 {
+    public static CVGenerator Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     [Header("Shared Pools (populate once, reused across all ~20 roles)")]
     [Tooltip("The full pool of CV building blocks available across all roles/industries.")]
     public List<CVEntry> EntryPool = new List<CVEntry>();

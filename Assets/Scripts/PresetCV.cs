@@ -11,22 +11,22 @@ public class PresetCV : ScriptableObject
     public List<CVEntry> Entries = new List<CVEntry>();
     public CVFormat FormatProfile;
 
+    [Header("Background Check (Day 2)")]
+    [Tooltip("Hidden record, only discoverable via the computer. Leave empty for a clean candidate.")]
+    public List<CriminalRecordEntryDefinition> CriminalRecord = new List<CriminalRecordEntryDefinition>();
+
     public GeneratedCV ToGeneratedCV()
     {
-        var cv = new GeneratedCV
-        {
-            CVName = CVName,
-            FormatProfile = FormatProfile
-        };
+        var cv = new GeneratedCV { CVName = CVName, FormatProfile = FormatProfile };
         cv.Entries.AddRange(Entries);
 
-        cv.CriminalRecordEntries = new List<CriminalRecordEntryDefinition>();
+        cv.CriminalRecordEntries = new List<CriminalRecordEntryDefinition>(CriminalRecord);
         cv.BackgroundCheckCode = BackgroundCheckCodeGenerator.GenerateUniqueCode();
 
         BackgroundCheckRegistry.Register(cv.BackgroundCheckCode, new BackgroundCheckResult
         {
             CandidateName = cv.CVName,
-            HasRecord = false,
+            HasRecord = cv.CriminalRecordEntries.Count > 0,
             Offenses = cv.CriminalRecordEntries
         });
 

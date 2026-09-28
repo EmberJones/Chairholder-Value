@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Receptionist
   m_EditorClassIdentifier: Assembly-CSharp::JobRole
   RoleTitle: Receptionist
-  RoleDescription: 'The first person in the company someone will see, needs good
-    knowledge of the company as a whole and is good communicating with people. '
+  RoleDescription: 'a person with good knowledge of the company as a whole and is
+    good at communicating with people. '
   TagWeights:
   - Tag: {fileID: 11400000, guid: ff1702d449b39ac4386839d068be2fda, type: 2}
     Weight: 0.92
