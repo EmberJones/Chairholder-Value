@@ -3,7 +3,7 @@ using UnityEngine;
 public class CVDetailUI : MonoBehaviour
 {
     public static CVDetailUI Instance { get; private set; }
-
+    public static event System.Action<CVObject> CVOpened;
     [SerializeField] private GameObject Panel;
     [SerializeField] private CVDisplay Display;
 
@@ -20,6 +20,7 @@ public class CVDetailUI : MonoBehaviour
         _currentCV = cv;
         Display.Populate(cv.Data);
         Panel.SetActive(true);
+        CVOpened?.Invoke(cv);
     }
 
     public void Close()

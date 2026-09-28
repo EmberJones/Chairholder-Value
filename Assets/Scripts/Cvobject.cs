@@ -46,7 +46,7 @@ public class CVObject : DraggableObject
     {
         base.OnDropped();
     }
-
+    public static event System.Action<CVObject> Stamped;
 
     public void ApplyStamp(StampType type, Vector3 worldHitPoint)
     {
@@ -59,6 +59,7 @@ public class CVObject : DraggableObject
             _audio.PlayOneShot(stampSound);
 
         GameManager.Instance?.OnCVStamped(this);
+        Stamped?.Invoke(this);  
     }
     void SpawnStampDecal(StampType type, Vector3 worldHitPoint)
     {

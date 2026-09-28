@@ -3,83 +3,213 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class TutorialDay
+{
+    public string dayTitle = "Day 1";
+    public string daySubtitle;
+
+    [Header("Setup")]
+    public JobRole role;
+    public List<PresetCV> presetBatch = new List<PresetCV>();
+    public bool computerWorking;
+
+    [Header("Dialogue")]
+    public DialogueSequence intro;
+    public DialogueSequence nudge;                 
+    public float nudgeAfterSeconds = 45f;
+    public DialogueSequence feedbackSuccess;       
+    public DialogueSequence feedbackFailure;
+
+    [Header("Rules")]
+    public bool repeatOnFailure = true;            // wrong pick replays this day instead of advancing
+}
+
 public class TutorialManager : MonoBehaviour, IRoundManager
 {
     public static TutorialManager Instance { get; private set; }
+
+    public enum GameState { InProgress, RoundComplete }
+    [SerializeField] private GameState _currentState = GameState.InProgress;
+    public GameState CurrentState => _currentState;
+
+    [Header("Days")]
+    [SerializeField] private List<TutorialDay> days = new List<TutorialDay>();
+
+    [Header("Spawning")]
+    [SerializeField] private GameObject CVPrefab;
+    [SerializeField] private Transform[] CVSpawnPoints;
+
+    [Header("References")]
+    [SerializeField] private PlayerController player;
+
+    [Header("Live CVs (filled at runtime)")]
+    [SerializeField] private List<CVObject> allCVs = new();
+
+    [Header("Events")]
+    public UnityEvent<int, JobRole> onDayStarted;     // hook the "Current Open Role" label here
+    public UnityEvent<bool> onComputerStateChanged;   // hook computer here
+    public UnityEvent<CVObject> onCVStamped;
+    public UnityEvent<RoundSummary> onRoundComplete;
+
+    private int _dayIndex;
+    private bool _dayActive;
+    private bool _submitted;
+    private bool _nudgeShown;
+    private float _lastProgressTime;
+
+    TutorialDay Day => days[_dayIndex];
+    public JobRole currentRole => days.Count > 0 ? Day.role : null;
+
+    public bool CanSubmitRound =>
+        _dayActive && !_submitted && allCVs.Any(cv => cv != null && cv.Decision == StampType.Approve);
+
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
 
-    public enum GameState { InProgress, RoundComplete }
-    [SerializeField] private GameState _currentState = GameState.InProgress;
-    public GameState CurrentState => _currentState;
+    void OnEnable()
+    {
+        CVObject.Stamped += HandleStamped;
+        CVDetailUI.CVOpened += HandleCVOpened;
+    }
 
-    [Header("Round Config")]
-    public JobRole currentRole;                              
-
-    [Header("Preset CVs")]
-    [Tooltip("Hand-authored CVs used instead of CVGenerator - order doesn't matter, spawn points below control layout.")]
-    [SerializeField] private List<PresetCV> presetBatch = new List<PresetCV>();
-
-    [Header("Spawning")]
-    [SerializeField] private GameObject CVPrefab;
-    [SerializeField] private Transform[] CVSpawnPoints;      
-
-    [Header("CV Batch")]
-    [SerializeField] private List<CVObject> allCVs = new();
-
-    [Header("Events - hook the tutorial dialogue/popup system to these")]
-    public UnityEvent<CVObject> onCVStamped;
-    public UnityEvent<RoundSummary> onRoundComplete;
-
-    public bool CanSubmitRound => allCVs.Any(cv => cv.Decision == StampType.Approve);
+    void OnDisable()
+    {
+        CVObject.Stamped -= HandleStamped;
+        CVDetailUI.CVOpened -= HandleCVOpened;
+    }
 
     void Start()
     {
-        SpawnPresetBatch();
-        ScoreBatch();
+        if (days.Count == 0) { Debug.LogWarning("[TutorialManager] No days configured."); return; }
+        SetupDay(0);
+        RunIntro();
     }
 
-    void SpawnPresetBatch()
+    void Update()
     {
-        allCVs.Clear();
+        if (!_dayActive || _submitted || _nudgeShown || days.Count == 0 || Day.nudge == null) return;
+        if (DialogueUI.Instance != null && DialogueUI.Instance.IsPlaying) return;
 
-        if (presetBatch == null || presetBatch.Count == 0)
+        if (player != null && player.IsHoldingSomething) { NotifyProgress(); return; }   // holding = active
+
+        if (Time.time - _lastProgressTime >= Day.nudgeAfterSeconds)
         {
-            Debug.LogWarning("[TutorialManager] No preset CVs assigned.");
+            _nudgeShown = true;
+            PlayDialogue(Day.nudge, null);
+        }
+    }
+
+    // Anything that counts as the player making progress resets the idle timer.
+    public void NotifyProgress() => _lastProgressTime = Time.time;
+
+    void HandleStamped(CVObject cv)
+    {
+        NotifyProgress();
+        onCVStamped?.Invoke(cv);
+    }
+
+    void HandleCVOpened(CVObject cv) => NotifyProgress();
+
+    // Day flow
+
+    void SetupDay(int index)
+    {
+        _dayIndex = index;
+        _submitted = false;
+        _dayActive = false;
+        _nudgeShown = false;
+        _currentState = GameState.InProgress;
+
+        CVDetailUI.Instance?.Close();
+        ClearDesk();
+        SpawnPresetBatch(Day);
+        ScoreBatch(Day.role);
+
+        onComputerStateChanged?.Invoke(Day.computerWorking);
+        onDayStarted?.Invoke(index, Day.role);
+    }
+
+    void RunIntro()
+    {
+        PlayDialogue(Day.intro, () =>
+        {
+            _dayActive = true;
+            _lastProgressTime = Time.time;
+        });
+    }
+
+    void GoToDay(int index, string subtitleOverride = null)
+    {
+        var next = days[index];
+        string subtitle = subtitleOverride ?? next.daySubtitle;
+
+        if (DayTransition.Instance == null)
+        {
+            SetupDay(index);
+            RunIntro();
             return;
         }
 
-        if (CVSpawnPoints == null || CVSpawnPoints.Length < presetBatch.Count)
-        {
-            Debug.LogWarning("[TutorialManager] Fewer spawn points than preset CVs - some candidates won't be placed.");
-        }
-
-        for (int i = 0; i < presetBatch.Count && i < CVSpawnPoints.Length; i++)
-        {
-            GeneratedCV data = presetBatch[i].ToGeneratedCV();
-
-            GameObject CV = Instantiate(CVPrefab, CVSpawnPoints[i].position, CVSpawnPoints[i].rotation);
-            CVObject CVO = CV.GetComponent<CVObject>();
-            CVO.SetData(data);
-            allCVs.Add(CVO);
-        }
+        DayTransition.Instance.Play(next.dayTitle, subtitle,
+            onCovered: () => SetupDay(index),
+            onFinished: RunIntro);
     }
 
-    void ScoreBatch()
+    void ClearDesk()
     {
-        if (currentRole == null) { Debug.LogWarning("[TutorialManager] No JobRole assigned."); return; }
         foreach (var cv in allCVs)
-            if (cv.Data != null) CVScorer.Score(cv.Data, currentRole);
+            if (cv != null) Destroy(cv.gameObject);
+        allCVs.Clear();
     }
 
-    public void OnCVStamped(CVObject cv) => onCVStamped?.Invoke(cv);
+    void SpawnPresetBatch(TutorialDay day)
+    {
+        if (day.presetBatch == null || day.presetBatch.Count == 0)
+        {
+            Debug.LogWarning($"[TutorialManager] {day.dayTitle} has no preset CVs.");
+            return;
+        }
 
+        if (CVSpawnPoints == null || CVSpawnPoints.Length == 0)
+        {
+            Debug.LogWarning("[TutorialManager] No spawn points assigned.");
+            return;
+        }
+
+        if (day.presetBatch.Count > CVSpawnPoints.Length)
+            Debug.LogWarning("[TutorialManager] More preset CVs than spawn points - the extras won't be placed.");
+
+        for (int i = 0; i < day.presetBatch.Count && i < CVSpawnPoints.Length; i++)
+        {
+            GeneratedCV data = day.presetBatch[i].ToGeneratedCV();
+            GameObject obj = Instantiate(CVPrefab, CVSpawnPoints[i].position, CVSpawnPoints[i].rotation);
+            CVObject cvObj = obj.GetComponent<CVObject>();
+            cvObj.SetData(data);
+            allCVs.Add(cvObj);
+        }
+    }
+
+    void ScoreBatch(JobRole role)
+    {
+        if (role == null) { Debug.LogWarning("[TutorialManager] Day has no JobRole."); return; }
+
+        foreach (var cv in allCVs)
+        {
+            if (cv.Data == null) continue;
+            CVScorer.Score(cv.Data, role);
+            Debug.Log($"[Tutorial] {cv.Data.CVName}: Content={cv.Data.ContentScore:F1} Format={cv.Data.FormatScore:F1} Final={cv.Data.FinalScore:F1}");
+        }
+    }
+
+    // Round resolution (called by FaxMachine through IRoundManager)
     public void SubmitRound()
     {
-        if (_currentState == GameState.RoundComplete) return;
+        if (_submitted) return;
+        _submitted = true;
         _currentState = GameState.RoundComplete;
 
         var allData = allCVs.Where(cv => cv.Data != null).Select(cv => cv.Data).ToList();
@@ -108,21 +238,43 @@ public class TutorialManager : MonoBehaviour, IRoundManager
             cv.gameObject.SetActive(false);
         }
 
-        Debug.Log(summary.HasApproval
-            ? $"[TutorialManager] Tutorial complete. Approved '{summary.Result.PickedCV.CVName}' - {summary.Result.Rating}"
-            : "[TutorialManager] Tutorial complete. No CV was approved.");
-
-        bool successfulHire = summary.HasApproval && summary.Result.Rating == PickRating.BestChoice;
-        MetaProgressManager.Instance?.ReportHireResult(currentRole, successfulHire);
+        bool success = summary.HasApproval && summary.Result.Rating == PickRating.BestChoice;
+        MetaProgressManager.Instance?.ReportHireResult(Day.role, success);
 
         onRoundComplete?.Invoke(summary);
-        // Tutorial dialogue/popup system should subscribe to onRoundComplete, show its feedback,
-        // then call TutorialManager.Instance.FinishTutorial() once the player dismisses it.
+
+        var tokens = new Dictionary<string, string>
+        {
+            { "picked", summary.HasApproval ? summary.Result.PickedCV.CVName : "nobody" },
+            { "best", bestCV != null ? bestCV.CVName : "nobody" }
+        };
+
+        PlayDialogue(success ? Day.feedbackSuccess : Day.feedbackFailure,
+                     () => AfterFeedback(success), tokens);
     }
 
-    // Call this once the tutorial's end-of-round feedback has been shown and dismissed
+    void AfterFeedback(bool success)
+    {
+        if (!success && Day.repeatOnFailure)
+        {
+            GoToDay(_dayIndex, "Try again");
+            return;
+        }
+
+        if (_dayIndex + 1 < days.Count) GoToDay(_dayIndex + 1);
+        else FinishTutorial();
+    }
+
     public void FinishTutorial()
     {
-        MetaProgressManager.Instance?.CompleteTutorial();
+        if (MetaProgressManager.Instance != null) MetaProgressManager.Instance.CompleteTutorial();
+        else Debug.LogWarning("[TutorialManager] No MetaProgressManager (are you testing this scene directly?).");
+    }
+
+    // Helper: skips straight to the callback if there's no dialogue UI or sequence
+    void PlayDialogue(DialogueSequence seq, System.Action onDone, Dictionary<string, string> tokens = null)
+    {
+        if (DialogueUI.Instance == null || seq == null) { onDone?.Invoke(); return; }
+        DialogueUI.Instance.Play(seq, onDone, tokens);
     }
 }

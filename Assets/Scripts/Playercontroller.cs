@@ -36,9 +36,14 @@ public class PlayerController : MonoBehaviour
         _cam = Camera.main;
         _deskPlane = new Plane(Vector3.up, new Vector3(0f, deskHeight, 0f));
     }
+    bool InputBlocked =>
+    //(DialogueUI.Instance != null && DialogueUI.Instance.BlocksInput) ||
+    (DayTransition.Instance != null && DayTransition.Instance.IsPlaying);
+
 
     void Update()
     {
+        if (InputBlocked) return;
         // Middle mouse to force deselect
         if (Input.GetMouseButtonDown(2))
         {
