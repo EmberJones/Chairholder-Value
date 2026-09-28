@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-// Sends the test emails automatically when the game starts,
-// so the inbox isn't empty (replaces pressing the old Send Mail button).
 public class SendMailOnStart : MonoBehaviour
 {
     [SerializeField] private MailTest mailTest;
@@ -11,7 +9,7 @@ public class SendMailOnStart : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return null; // wait one frame so the Mail Manager is ready
+        yield return null; 
 
         for (int i = 0; i < times; i++)
             mailTest.SendMail();
