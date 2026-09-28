@@ -29,7 +29,7 @@ public class CodeValidator : MonoBehaviour
 
             foreach (var offense in result.Offenses)
             {
-                output += offense.name + "\n";
+                output += offense.DisplayText + "\n";
             }
 
             OutPutTextField.text = output;

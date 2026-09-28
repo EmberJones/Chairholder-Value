@@ -1537,12 +1537,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c2701f70e56bef4c89c9a05548de615, type: 2}
   - {fileID: 11400000, guid: f87e16e396b18da42b81e9e61bc28070, type: 2}
   - {fileID: 11400000, guid: bf6f812bb83a97041a765a7d08b50b5c, type: 2}
+  - {fileID: 11400000, guid: 5b3e57eb29a088e41936a0595402eb62, type: 2}
+  - {fileID: 11400000, guid: 25b0c71f2d9b53645b370c937125f79f, type: 2}
   - {fileID: 11400000, guid: 304dc003d24995644b9f9116063a5cef, type: 2}
   - {fileID: 11400000, guid: b3c9731e2075be546b4e9989f83c29d3, type: 2}
+  - {fileID: 11400000, guid: d3ab927b020549e43a5293996bfd3678, type: 2}
   - {fileID: 11400000, guid: 74431e07086a75440957769a4d827557, type: 2}
+  - {fileID: 11400000, guid: bdbae0141414a724cbe2528c365ecce0, type: 2}
   - {fileID: 11400000, guid: ba966727f4c3c434487b64060dceab45, type: 2}
   - {fileID: 11400000, guid: 6d807774694f9f94f99f69b5c27ef388, type: 2}
+  - {fileID: 11400000, guid: d2b04871f512cbb4eadbda29c8a5f07f, type: 2}
+  - {fileID: 11400000, guid: 292ff2070ba820a41bd0cc5aedda36d8, type: 2}
   - {fileID: 11400000, guid: a71358dd8a0fa8447b0ed7994ecbf869, type: 2}
+  - {fileID: 11400000, guid: 0cac20ef264bc15439aeebfdcdd9d40b, type: 2}
+  - {fileID: 11400000, guid: 50b404e495a49d741aee17c2426555e6, type: 2}
   - {fileID: 11400000, guid: 7c0e9ca502e360f48a41493a8785c9c2, type: 2}
   FormatProfiles:
   - {fileID: 11400000, guid: 897dac5d543482842815518ad7d4d490, type: 2}
@@ -1550,7 +1558,58 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cb92ef20aa489c14bb0cc1242a1cea40, type: 2}
   - {fileID: 11400000, guid: 83744f2316ebb46419622d23fbf97085, type: 2}
   - {fileID: 11400000, guid: 8c738950c4701a644a056a2b3d5bf36d, type: 2}
-  CandidateNamePool: []
+  CandidateNamePool:
+  - James
+  - Micheal
+  - John
+  - Robert
+  - David
+  - William
+  - Mohammed
+  - Joseph
+  - Chris
+  - Frank
+  - Mikey
+  - Jason
+  - George
+  - Jeff
+  - Ryan
+  - Jacob
+  - Alex
+  - Ethan
+  - Scott
+  - Eric
+  - Gary
+  - Ray
+  - Aaron
+  - Tyler
+  - Franklin
+  - Mary
+  - Patricia
+  - Linda
+  - Elizabeth
+  - Barbara
+  - Peace
+  - Susan
+  - Sarah
+  - Catherine
+  - Lisa
+  - Nancy
+  - Oprah
+  - Melissa
+  - Sandra
+  - Steph
+  - Rebecca
+  - Sharon
+  - Diana
+  - Julia
+  - Amanda
+  - Emma
+  - Dorothy
+  - Brenda
+  - Christy
+  - Nici
+  - Victoria
   CriminalRecordPool:
   - {fileID: 11400000, guid: d51ceff8b01933741b47bbe632e39633, type: 2}
   - {fileID: 11400000, guid: 7660c116e09905c41bf267a4e1015cb4, type: 2}
