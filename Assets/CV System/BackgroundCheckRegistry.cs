@@ -14,7 +14,7 @@ public static class BackgroundCheckRegistry
     
     public static void Register(string Code, BackgroundCheckResult result)
     {
-        _entries[Code] = result;
+        _entries[NormalizeCode(Code)] = result;
     }
 
     public static bool IsCodeInUse(string Code) => _entries.ContainsKey(Code);
