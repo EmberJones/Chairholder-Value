@@ -73,6 +73,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private List<SpeakerProfile> speakers = new List<SpeakerProfile>();
 
     public bool IsPlaying { get; private set; }
+    public bool BlocksInput => IsPlaying;
 
     private Vector2 boxHomePosition;
     private TMP_Text hintText;
