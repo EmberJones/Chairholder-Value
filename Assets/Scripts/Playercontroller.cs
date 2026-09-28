@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         _deskPlane = new Plane(Vector3.up, new Vector3(0f, deskHeight, 0f));
     }
     bool InputBlocked =>
-    //(DialogueUI.Instance != null && DialogueUI.Instance.BlocksInput) ||
+    (DialogueUI.Instance != null && DialogueUI.Instance.BlocksInput) ||
     (DayTransition.Instance != null && DayTransition.Instance.IsPlaying);
 
 
