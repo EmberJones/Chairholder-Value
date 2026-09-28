@@ -7,8 +7,12 @@ public class CVObject : DraggableObject
     public GeneratedCV Data { get; private set; }
 
     [Header("Stamp Overlays")]
-    [SerializeField] private GameObject approveOverlay;
-    [SerializeField] private GameObject rejectOverlay;
+    [SerializeField] private Sprite approveStampSprite;
+    [SerializeField] private Sprite rejectStampSprite;
+    [SerializeField] private int decalSortOrderBoost = 1;
+    private GameObject _spawnedDecal;
+    [SerializeField] private string decalSortingLayerName = "Objects";
+    [SerializeField] private Vector3 decalWorldScale = new Vector3(0.15f, 0.15f, 1f);
 
     [Header("Stamp Sound")]
     [SerializeField] private AudioClip stampSound;
@@ -23,12 +27,8 @@ public class CVObject : DraggableObject
     {
         base.Awake();
         _audio = GetComponent<AudioSource>();
-
-        if (approveOverlay != null) approveOverlay.SetActive(false);
-        if (rejectOverlay != null) rejectOverlay.SetActive(false);
     }
 
-    // Called by whatever spawns the batch
     public void SetData(GeneratedCV data)
     {
         Data = data;
@@ -47,29 +47,48 @@ public class CVObject : DraggableObject
         base.OnDropped();
     }
 
-    // Stamping - unchanged behaviour, still happens on the desk object
 
-    public void ApplyStamp(StampType type)
+    public void ApplyStamp(StampType type, Vector3 worldHitPoint)
     {
         if (IsStamped) return;
 
         _decision = type;
-
-        if (type == StampType.Approve)
-        { if (approveOverlay != null) approveOverlay.SetActive(true); }
-        else
-        { if (rejectOverlay != null) rejectOverlay.SetActive(true); }
+        SpawnStampDecal(type, worldHitPoint);
 
         if (_audio != null && stampSound != null)
             _audio.PlayOneShot(stampSound);
 
         GameManager.Instance?.OnCVStamped(this);
     }
+    void SpawnStampDecal(StampType type, Vector3 worldHitPoint)
+    {
+        Sprite sprite = type == StampType.Approve ? approveStampSprite : rejectStampSprite;
+        if (sprite == null) return;
 
+        var decal = new GameObject($"{type}Decal");
+        decal.transform.SetParent(transform, worldPositionStays: true);
+        decal.transform.position = worldHitPoint;
+        decal.transform.rotation = transform.rotation;
+        decal.transform.localScale = decalWorldScale;
+
+        var sr = decal.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.flipX = true;
+        sr.sortingLayerName = decalSortingLayerName;
+
+
+        var cvRenderer = GetComponent<SpriteRenderer>();
+        sr.sortingOrder = (cvRenderer != null ? cvRenderer.sortingOrder : 0) + decalSortOrderBoost;
+
+        _spawnedDecal = decal;
+    }
     public void ClearStamp()
     {
         _decision = null;
-        if (approveOverlay != null) approveOverlay.SetActive(false);
-        if (rejectOverlay != null) rejectOverlay.SetActive(false);
+        if (_spawnedDecal != null)
+        {
+            Destroy(_spawnedDecal);
+            _spawnedDecal = null;
+        }
     }
 }

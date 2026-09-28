@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2714387
+      value: -6.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.018279
+      value: 12.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.33
+      value: 19.68
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 443151f3c5c76034f9cdfb388ca3e234, type: 2}
+      objectReference: {fileID: 9100000, guid: d9b39c4e0e41d0e4fb336c9ee0e46e21, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -108,6 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StampObject
   stampType: 0
+  animator: {fileID: 5548505381932462791}
+  stampTriggerName: Stamp
+  uprightEuler: {x: 0, y: 0, z: 0}
 --- !u!65 &8235799156123912289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,7 +131,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.0325, y: 0.04, z: 0.0325}
-  m_Center: {x: 0, y: 0.021, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8822005860527062974
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,3 +159,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &5548505381932462791 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: bce9d74a4475a5c459c8b538bec6edca, type: 3}
+  m_PrefabInstance: {fileID: 2047683823494090582}
+  m_PrefabAsset: {fileID: 0}

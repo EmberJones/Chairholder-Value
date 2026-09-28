@@ -27,15 +27,4 @@ public class CVDetailUI : MonoBehaviour
         _currentCV = null;
         Panel.SetActive(false);
     }
-
-    // Hook these to Approve/Reject buttons on the detail panel if stamping happens from here
-    public void StampApprove() => Stamp(StampType.Approve);
-    public void StampReject() => Stamp(StampType.Reject);
-
-    private void Stamp(StampType type)
-    {
-        if (_currentCV == null) return;
-        _currentCV.ApplyStamp(type);
-        Close();
-    }
 }

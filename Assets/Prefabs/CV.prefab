@@ -201,8 +201,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5da83a9d38a3346bd9344728f8e4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVObject
-  approveOverlay: {fileID: 652522550574414817}
-  rejectOverlay: {fileID: 4439295625940328342}
+  approveStampSprite: {fileID: 21300000, guid: 5eb666f9fd18d7d479698d6bdd8c2652, type: 3}
+  rejectStampSprite: {fileID: 21300000, guid: e4e3610a35bc2024889ac29fc8df3970, type: 3}
+  decalSortOrderBoost: 0
+  decalSortingLayerName: Objects
+  decalWorldScale: {x: 1, y: 1, z: 1}
   stampSound: {fileID: 8300000, guid: 941bad1969dc7aa4eae124062589f907, type: 3}
 --- !u!210 &1709135128490601442
 SortingGroup:
@@ -212,8 +215,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397300773956954726}
   m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1987024243
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_SortAtRoot: 1
   m_Sort3DAs2D: 1

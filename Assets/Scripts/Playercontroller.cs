@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [Header("Double-Click")]
     [SerializeField] private float doubleClickThreshold = 0.35f;
 
+    private Quaternion _heldUprightRotation;  
+
     private RigidbodyConstraints _heldOriginalConstraints;
     private Camera _cam;
     private Plane _deskPlane;
@@ -64,22 +66,21 @@ public class PlayerController : MonoBehaviour
         if (vel.magnitude > maxDragSpeed) vel = vel.normalized * maxDragSpeed;
         _heldRb.linearVelocity = vel;
         _heldRb.angularVelocity = Vector3.zero;
+
+        if (_heldIsStamp)
+            _heldRb.rotation = _heldUprightRotation;
     }
 
     void HandleMouseDown()
     {
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
 
-        // First, do a raycast for everything and get all hits
         RaycastHit[] allHits = Physics.RaycastAll(ray, 100f);
 
-        // Sort by distance
         System.Array.Sort(allHits, (a, b) => a.distance.CompareTo(b.distance));
 
-        // If holding a stamp, try to stamp the first CV we hit
         if (_held != null && _heldIsStamp)
         {
-            // Look for a CV to stamp
             foreach (RaycastHit hit in allHits)
             {
                 if (((1 << hit.collider.gameObject.layer) & cvLayer) != 0)
@@ -88,33 +89,30 @@ public class PlayerController : MonoBehaviour
                     StampObject stamp = _held.GetComponent<StampObject>();
                     if (cv != null && stamp != null)
                     {
-                        cv.ApplyStamp(stamp.StampType);
+                        Vector3 stampPos = _held.transform.position;
+                        Vector3 decalPoint = new Vector3(stampPos.x, cv.transform.position.y, stampPos.z);   
+                        cv.ApplyStamp(stamp.StampType, decalPoint);
                         stamp.PlayStampAnimation();
-                        // Stamp is used, deselect it
                         Deselect();
                         return;
                     }
                 }
             }
-            // If no CV found, just drop the stamp
             Deselect();
             return;
         }
 
-        // If holding something else (non-stamp), drop it
         if (_held != null)
         {
             Deselect();
             return;
         }
 
-        // Nothing held - check what we're clicking on
         foreach (RaycastHit hit in allHits)
         {
             GameObject hitObject = hit.collider.gameObject;
             int layer = hit.collider.gameObject.layer;
 
-            // Check for fax machine (highest priority)
             if (((1 << layer) & faxLayer) != 0)
             {
                 hit.collider.GetComponent<FaxMachine>()?.TrySubmitRound();
@@ -162,7 +160,6 @@ public class PlayerController : MonoBehaviour
         {
             Deselect();
         }
-        // If it's a stamp, keep holding it after click
     }
 
     void SelectObject(GameObject obj, bool isStamp)
@@ -170,10 +167,19 @@ public class PlayerController : MonoBehaviour
         _held = obj;
         _heldIsStamp = isStamp;
         _heldRb = obj.GetComponent<Rigidbody>();
-        _grabOffset = obj.transform.position - RaycastDeskPoint();
+        _grabOffset = isStamp ? Vector3.zero : obj.transform.position - RaycastDeskPoint();
         _isDragging = true;
 
         _heldOriginalConstraints = _heldRb.constraints;
+
+        if (isStamp)
+        {
+            StampObject stampObj = obj.GetComponent<StampObject>();
+            _heldUprightRotation = stampObj != null ? stampObj.UprightRotation : Quaternion.identity;
+            _heldRb.constraints = RigidbodyConstraints.None;   
+            _heldRb.rotation = _heldUprightRotation;          
+        }
+
         _heldRb.constraints = RigidbodyConstraints.FreezeRotation;
 
         _held.SendMessage("OnPickedUp", SendMessageOptions.DontRequireReceiver);
