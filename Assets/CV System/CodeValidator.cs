@@ -22,7 +22,7 @@ public class CodeValidator : MonoBehaviour
 
             if (result.Offenses.Count == 0)
             {
-                output += "No criminal acts on record";
+                output += "\nNo criminal acts on record";
                 OutPutTextField.text = output;
                 return;
             }
