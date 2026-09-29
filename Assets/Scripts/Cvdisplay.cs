@@ -8,6 +8,9 @@ public class CVDisplay : MonoBehaviour
     [Header("Header")]
     [SerializeField] private TMP_Text nameText;
 
+    [Header("Criminal Code")]
+    [SerializeField] private TMP_Text CriminalCode;
+
     [Header("Experience")]
     [SerializeField] private TMP_Text experienceText;
 
@@ -25,6 +28,7 @@ public class CVDisplay : MonoBehaviour
         if (data == null) return;
 
         SetText(nameText, data.CVName ?? "Unknown");
+        SetText(CriminalCode, data.BackgroundCheckCode ?? "Unknown");
         SetText(experienceText, BuildCategory(data, EntryCategory.Experience, "No experience listed."));
         SetText(educationText, BuildCategory(data, EntryCategory.Education, "No education listed."));
         SetText(skillsText, BuildCategory(data, EntryCategory.Skill, "None listed."));
