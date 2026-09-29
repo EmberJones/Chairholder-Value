@@ -2,95 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-[System.Serializable]
-public class SpeakerVoice
-{
-    public string speaker = "Boss";
-    [Range(0.5f, 2f)] public float pitch = 0.8f;
-    [Range(0f, 0.5f)] public float pitchVariation = 0.12f;
-}
 
 public class DialogueUI : MonoBehaviour
 {
     public static DialogueUI Instance { get; private set; }
 
-    [SerializeField] private CanvasGroup group;
+    [SerializeField] private GameObject panel;
     [SerializeField] private TMP_Text speakerText;
     [SerializeField] private TMP_Text bodyText;
-    [SerializeField] private GameObject continueHint;
+    [SerializeField] private GameObject continueIndicator;   
 
-    [Header("Style")]
-    [SerializeField] private RectTransform box;
-    [SerializeField] private float slideDistance = 30f;
-    [SerializeField] private float hintBlinkSpeed = 0.5f;
+    [Header("Typewriter")]
+    [SerializeField] private float charsPerSecond = 40f;
 
-    [Header("Timing")]
-    [SerializeField] private float fadeTime = 0.25f;
-    [SerializeField] private float openDelay = 0.5f;
-    [SerializeField] private float charactersPerSecond = 40f;
-    [SerializeField] private float sentencePause = 0.25f;
-    [SerializeField] private float commaPause = 0.1f;
-
-    [Header("Voice")]
-    [SerializeField] private AudioSource voiceSource;
-    [SerializeField] private AudioClip[] voiceClips;
-    [SerializeField, Range(0f, 1f)] private float voiceVolume = 0.7f;
-    [SerializeField] private int soundEveryNLetters = 1;
-    [SerializeField] private float defaultPitch = 1f;
-    [SerializeField] private float defaultPitchVariation = 0.12f;
-    [SerializeField] private List<SpeakerVoice> speakerVoices = new List<SpeakerVoice>();
+    [Header("Blip Audio (optional, Simlish-style)")]
+    [SerializeField] private AudioSource blipSource;
+    [SerializeField] private AudioClip[] blipClips;
+    [SerializeField] private int charsPerBlip = 2;
+    [SerializeField] private Vector2 pitchRange = new Vector2(0.9f, 1.15f);
 
     public bool IsPlaying { get; private set; }
 
-    private Vector2 boxHomePosition;
-    private float currentPitch;
-    private float currentVariation;
+    public bool BlocksInput => IsPlaying || Time.frameCount <= _closedFrame;
+
+    private int _closedFrame = -1;
+    private int _blipCounter;
+    private Coroutine _routine;
 
     void Awake()
     {
         Instance = this;
-        if (box != null) boxHomePosition = box.anchoredPosition;
-        group.alpha = 0f;
-        group.blocksRaycasts = false;
-        if (continueHint != null) continueHint.SetActive(false);
+        panel.SetActive(false);
     }
 
-    public void Play(DialogueSequence seq, System.Action onDone, Dictionary<string, string> tokens = null)
+    public void Play(DialogueSequence sequence, System.Action onComplete = null,
+                     Dictionary<string, string> tokens = null)
     {
-        if (seq == null || seq.lines == null || seq.lines.Count == 0)
-        {
-            onDone?.Invoke();
-            return;
-        }
-
-        StopAllCoroutines();
-        StartCoroutine(Run(seq, onDone, tokens));
+        if (sequence == null || sequence.lines.Count == 0) { onComplete?.Invoke(); return; }
+        if (_routine != null) StopCoroutine(_routine);
+        _routine = StartCoroutine(Run(sequence, onComplete, tokens));
     }
 
-    IEnumerator Run(DialogueSequence seq, System.Action onDone, Dictionary<string, string> tokens)
+    IEnumerator Run(DialogueSequence sequence, System.Action onComplete, Dictionary<string, string> tokens)
     {
         IsPlaying = true;
-        group.blocksRaycasts = true;
-        if (group.alpha < 0.01f) yield return new WaitForSecondsRealtime(openDelay);
-        yield return Fade(group.alpha, 1f);
+        panel.SetActive(true);
 
-        foreach (DialogueLine line in seq.lines)
+        foreach (var line in sequence.lines)
         {
             speakerText.text = line.speaker;
-            SetVoiceFor(line.speaker);
             yield return TypeLine(ApplyTokens(line.text, tokens));
+            yield return null;  
 
-            if (continueHint != null) continueHint.SetActive(true);
-            yield return WaitForContinue();
-            if (continueHint != null) continueHint.SetActive(false);
+            if (continueIndicator != null) continueIndicator.SetActive(true);
+            while (!AdvancePressed()) yield return null;
+            if (continueIndicator != null) continueIndicator.SetActive(false);
         }
 
-        yield return Fade(1f, 0f);
-        group.blocksRaycasts = false;
+        panel.SetActive(false);
         IsPlaying = false;
-        onDone?.Invoke();
+        _closedFrame = Time.frameCount;
+        _routine = null;
+        onComplete?.Invoke();
     }
 
     IEnumerator TypeLine(string text)
@@ -98,127 +71,45 @@ public class DialogueUI : MonoBehaviour
         bodyText.text = text;
         bodyText.maxVisibleCharacters = 0;
         bodyText.ForceMeshUpdate();
-        TMP_TextInfo info = bodyText.textInfo;
-        int total = info.characterCount;
+        int total = bodyText.textInfo.characterCount;
+        float shown = 0f;
 
-        int letterCount = 0;
-        float timer = 0f;
-        yield return null;
+        yield return null;   
 
-        for (int i = 0; i < total; i++)
+        while (bodyText.maxVisibleCharacters < total)
         {
-            bodyText.maxVisibleCharacters = i + 1;
-            char c = info.characterInfo[i].character;
+            if (AdvancePressed()) break;
 
-            if (char.IsLetterOrDigit(c))
+            shown += charsPerSecond * Time.unscaledDeltaTime;
+            int target = Mathf.Min(total, Mathf.FloorToInt(shown));
+
+            for (int i = bodyText.maxVisibleCharacters; i < target; i++)
             {
-                if (letterCount % Mathf.Max(1, soundEveryNLetters) == 0) PlayVoice(c);
-                letterCount++;
+                char c = bodyText.textInfo.characterInfo[i].character;
+                if (!char.IsWhiteSpace(c) && !char.IsPunctuation(c) && ++_blipCounter % charsPerBlip == 0)
+                    PlayBlip();
             }
 
-            float wait = 1f / Mathf.Max(1f, charactersPerSecond);
-            if (c == '.' || c == '!' || c == '?') wait += sentencePause;
-            else if (c == ',') wait += commaPause;
-
-            while (timer < wait)
-            {
-                if (ContinuePressed())
-                {
-                    bodyText.maxVisibleCharacters = total;
-                    yield return null;
-                    yield break;
-                }
-                timer += SafeDeltaTime();
-                yield return null;
-            }
-            timer -= wait;
-        }
-    }
-
-    void SetVoiceFor(string speaker)
-    {
-        currentPitch = defaultPitch;
-        currentVariation = defaultPitchVariation;
-
-        foreach (SpeakerVoice voice in speakerVoices)
-        {
-            if (string.Equals(voice.speaker, speaker, System.StringComparison.OrdinalIgnoreCase))
-            {
-                currentPitch = voice.pitch;
-                currentVariation = voice.pitchVariation;
-                return;
-            }
-        }
-    }
-
-    void PlayVoice(char c)
-    {
-        if (voiceSource == null || voiceClips == null || voiceClips.Length == 0) return;
-
-        c = char.ToLowerInvariant(c);
-
-        int index = "aeiou".IndexOf(c);
-        if (index < 0 || index >= voiceClips.Length) index = c % voiceClips.Length;
-
-        float step = ((c * 7) % 5 - 2) / 2f;
-
-        voiceSource.pitch = currentPitch * (1f + currentVariation * step);
-        voiceSource.Stop();
-        voiceSource.PlayOneShot(voiceClips[index], voiceVolume);
-    }
-
-    IEnumerator WaitForContinue()
-    {
-        yield return null;
-        float timer = 0f;
-        while (!ContinuePressed())
-        {
-            timer += Time.unscaledDeltaTime;
-            if (continueHint != null && timer >= hintBlinkSpeed)
-            {
-                timer = 0f;
-                continueHint.SetActive(!continueHint.activeSelf);
-            }
+            bodyText.maxVisibleCharacters = target;
             yield return null;
         }
+
+        bodyText.maxVisibleCharacters = total;
     }
 
-    static bool ContinuePressed()
+    void PlayBlip()
     {
-        Mouse mouse = Mouse.current;
-        Keyboard keyboard = Keyboard.current;
-        return (mouse != null && mouse.leftButton.wasPressedThisFrame) ||
-               (keyboard != null && (keyboard.spaceKey.wasPressedThisFrame ||
-                                     keyboard.enterKey.wasPressedThisFrame));
+        if (blipSource == null || blipClips == null || blipClips.Length == 0) return;
+        blipSource.pitch = Random.Range(pitchRange.x, pitchRange.y);
+        blipSource.PlayOneShot(blipClips[Random.Range(0, blipClips.Length)]);
     }
+
+    static bool AdvancePressed() => Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space);
 
     static string ApplyTokens(string text, Dictionary<string, string> tokens)
     {
-        if (string.IsNullOrEmpty(text) || tokens == null) return text;
-        foreach (var pair in tokens)
-            text = text.Replace("{" + pair.Key + "}", pair.Value);
+        if (tokens == null) return text;
+        foreach (var kv in tokens) text = text.Replace("{" + kv.Key + "}", kv.Value);
         return text;
-    }
-
-    IEnumerator Fade(float from, float to)
-    {
-        float t = 0f;
-        while (t < fadeTime)
-        {
-            t += SafeDeltaTime();
-            group.alpha = Mathf.Lerp(from, to, t / fadeTime);
-            SlideBox(group.alpha);
-            yield return null;
-        }
-        group.alpha = to;
-        SlideBox(to);
-    }
-
-    static float SafeDeltaTime() => Mathf.Min(Time.unscaledDeltaTime, 0.05f);
-
-    void SlideBox(float visibility)
-    {
-        if (box == null) return;
-        box.anchoredPosition = boxHomePosition + Vector2.down * slideDistance * (1f - visibility);
     }
 }
