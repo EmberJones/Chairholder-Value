@@ -27,12 +27,12 @@ public class CVDisplay : MonoBehaviour
     {
         if (data == null) return;
 
-        SetText(nameText, data.CVName ?? "Unknown");
-        SetText(CriminalCode, data.BackgroundCheckCode ?? "Unknown");
-        SetText(experienceText, BuildCategory(data, EntryCategory.Experience, "No experience listed."));
-        SetText(educationText, BuildCategory(data, EntryCategory.Education, "No education listed."));
-        SetText(skillsText, BuildCategory(data, EntryCategory.Skill, "None listed."));
-        SetText(certificationsText, BuildCategory(data, EntryCategory.Certification, "None listed."));
+        SetText(nameText, data.CVName ?? "Name Unknown");
+        SetText(CriminalCode, data.BackgroundCheckCode ?? "Criminal Code Unknown");
+        SetText(experienceText, BuildCategory(data, EntryCategory.Experience, "No Experience listed."));
+        SetText(educationText, BuildCategory(data, EntryCategory.Education, "No Education listed."));
+        SetText(skillsText, BuildCategory(data, EntryCategory.Skill, "No Skills listed."));
+        SetText(certificationsText, BuildCategory(data, EntryCategory.Certification, "No Certifications listed."));
     }
 
     string BuildCategory(GeneratedCV data, EntryCategory category, string emptyMessage)
