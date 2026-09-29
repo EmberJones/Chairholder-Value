@@ -177,10 +177,12 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
         {
             case CurrentLevel.Lower:
                 ActiveLevel = CurrentLevel.Middle;
+                MetaProgressManager.Instance.LoadMiddleScene();
                 // load middle scene
                 break;
             case CurrentLevel.Middle:
                 ActiveLevel = CurrentLevel.Upper;
+                MetaProgressManager.Instance.LoadBestScene();
                 // load upper scene
                 break;
             case CurrentLevel.Upper:
@@ -194,12 +196,15 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
         switch (ActiveLevel)
         {
             case CurrentLevel.Lower:
+                MetaProgressManager.Instance.LoadWorstScene();
                 // reload lower scene
                 break;
             case CurrentLevel.Middle:
+                MetaProgressManager.Instance.LoadMiddleScene();
                 // reload middle scene
                 break;
             case CurrentLevel.Upper:
+                MetaProgressManager.Instance.LoadBestScene();
                 // reload upper scene
                 break;
         }
@@ -214,10 +219,12 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
                 break;
             case CurrentLevel.Middle:
                 ActiveLevel = CurrentLevel.Lower;
+                MetaProgressManager.Instance.LoadWorstScene();
                 // load the lower scene
                 break;
             case CurrentLevel.Upper:
                 ActiveLevel = CurrentLevel.Middle;
+                MetaProgressManager.Instance.LoadMiddleScene();
                 // load the middle scene
                 break;
         }

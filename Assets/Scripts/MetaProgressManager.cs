@@ -14,6 +14,9 @@ public class MetaProgressManager : MonoBehaviour
     [SerializeField] private string mainGameplaySceneName = "DeskTestScene";
     [SerializeField] private string winSceneName = "WinScene";
     [SerializeField] private string loseSceneName = "LoseScene";
+    [SerializeField] private string WorseSceneName = "WorsetScene";
+    [SerializeField] private string BestSceneName = "BestScene";
+    [SerializeField] private string MenuSceneName = "MainMenu";
 
     [Header("Unlocks")]
     [SerializeField] private JobRole itGuyRole;   // the specific JobRole that represents hiring the IT guy
@@ -58,5 +61,25 @@ public class MetaProgressManager : MonoBehaviour
         if (MetaScore >= winScore) { SceneManager.LoadScene(winSceneName); return; }
         if (MetaScore <= loseScore) { SceneManager.LoadScene(loseSceneName); return; }
         SceneManager.LoadScene(mainGameplaySceneName);
+    }
+
+    public void LoadWorstScene()
+    {
+        SceneManager.LoadSceneAsync(WorseSceneName);
+    }
+
+    public void LoadMiddleScene()
+    {
+        SceneManager.LoadSceneAsync(mainGameplaySceneName);
+    }
+
+    public void LoadBestScene()
+    {
+        SceneManager.LoadSceneAsync(BestSceneName);
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadSceneAsync(MenuSceneName);
     }
 }
