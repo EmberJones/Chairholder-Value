@@ -259,9 +259,14 @@ public class DialogueUI : MonoBehaviour
     static bool ContinuePressed()
     {
         Keyboard keyboard = Keyboard.current;
-        return keyboard != null && (keyboard.spaceKey.wasPressedThisFrame ||
-                                    keyboard.enterKey.wasPressedThisFrame ||
-                                    keyboard.numpadEnterKey.wasPressedThisFrame);
+        bool keyPressed = keyboard != null && (keyboard.spaceKey.wasPressedThisFrame ||
+                                                keyboard.enterKey.wasPressedThisFrame ||
+                                                keyboard.numpadEnterKey.wasPressedThisFrame);
+
+        Mouse mouse = Mouse.current;
+        bool clickPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
+
+        return keyPressed || clickPressed;
     }
 
     static string ApplyTokens(string text, Dictionary<string, string> tokens)
