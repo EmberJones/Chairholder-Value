@@ -19,10 +19,12 @@ public class MetaProgressManager : MonoBehaviour
     [SerializeField] private string MenuSceneName = "MainMenu";
 
     [Header("Unlocks")]
-    [SerializeField] private JobRole itGuyRole;   // the specific JobRole that represents hiring the IT guy
+    [SerializeField] private JobRole itGuyRole;   
     public bool ITGuyHired { get; private set; }
 
     public int MetaScore { get; private set; }
+
+    public int CurrentDay { get; private set; } = 1;
 
     const string TutorialDoneKey = "ChairholderValue_TutorialDone";
 
@@ -35,7 +37,7 @@ public class MetaProgressManager : MonoBehaviour
 
     public void StartGame()
     {
-        bool tutorialDone = PlayerPrefs.GetInt(TutorialDoneKey, 0) == 1;
+        bool tutorialDone = PlayerPrefs.GetInt(TutorialDoneKey, 0) == 0;
         SceneManager.LoadScene(tutorialDone ? mainGameplaySceneName : tutorialSceneName);
     }
 
@@ -58,28 +60,29 @@ public class MetaProgressManager : MonoBehaviour
     // Whoever owns the round-end dialogue/popup calls this once the player has dismissed it
     public void ProceedAfterRound()
     {
-        if (MetaScore >= winScore) { SceneManager.LoadScene(winSceneName); return; }
-        if (MetaScore <= loseScore) { SceneManager.LoadScene(loseSceneName); return; }
-        SceneManager.LoadScene(mainGameplaySceneName);
+        if (MetaScore >= winScore) { PlayTransitionThenLoad(winSceneName, "Game Complete"); return; }
+        if (MetaScore <= loseScore) { PlayTransitionThenLoad(loseSceneName, "Game Over"); return; }
+
+        CurrentDay++;
+        PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
     }
 
-    public void LoadWorstScene()
-    {
-        SceneManager.LoadSceneAsync(WorseSceneName);
-    }
+    public void LoadWorstScene() => PlayTransitionThenLoad(WorseSceneName, "Game Over");
+    public void LoadMiddleScene() => PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
+    public void LoadBestScene() => PlayTransitionThenLoad(BestSceneName, "Game Complete");
+    public void LoadMenu() => PlayTransitionThenLoad(MenuSceneName, null);
 
-    public void LoadMiddleScene()
+    void PlayTransitionThenLoad(string sceneName, string title, string subtitle = null)
     {
-        SceneManager.LoadSceneAsync(mainGameplaySceneName);
-    }
-
-    public void LoadBestScene()
-    {
-        SceneManager.LoadSceneAsync(BestSceneName);
-    }
-
-    public void LoadMenu()
-    {
-        SceneManager.LoadSceneAsync(MenuSceneName);
+        if (DayTransition.Instance != null)
+        {
+            DayTransition.Instance.Play(title, subtitle,
+                onCovered: () => SceneManager.LoadScene(sceneName));
+        }
+        else
+        {
+            Debug.LogWarning("[MetaProgressManager] No DayTransition in this scene - loading without a cover fade.");
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

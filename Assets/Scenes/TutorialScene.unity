@@ -246,6 +246,50 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &60033836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 60033838}
+  - component: {fileID: 60033837}
+  m_Layer: 0
+  m_Name: MailManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &60033837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60033836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aadb46728eec134b8cdc311b7e72702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MailManager
+--- !u!4 &60033838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60033836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.27099, y: 14.72161, z: 22.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &81439698
 GameObject:
   m_ObjectHideFlags: 0
@@ -4489,21 +4533,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
   _currentState: 0
   days:
-  - dayTitle: Day One
+  - dayTitle: Day 1
     daySubtitle: Computer Repair Job
     role: {fileID: 11400000, guid: a0cafc30a8768164a9b132ecc007fc4d, type: 2}
     presetBatch:
     - {fileID: 11400000, guid: 76bd35a4a7609d3479f70207653ceea1, type: 2}
     - {fileID: 11400000, guid: 56e9068da48629340ac301ebb0f010fb, type: 2}
     - {fileID: 11400000, guid: 7afe06a6a5dfa1a42abddc5205b8fd7b, type: 2}
-    computerWorking: 1
+    computerWorking: 0
     intro: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
     nudge: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
     nudgeAfterSeconds: 80
     feedbackSuccess: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
     feedbackFailure: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
     repeatOnFailure: 1
-  - dayTitle: Day Two
+  - dayTitle: Day 2
     daySubtitle: Background Check Tutorial
     role: {fileID: 11400000, guid: a0cafc30a8768164a9b132ecc007fc4d, type: 2}
     presetBatch:
@@ -4533,14 +4577,14 @@ MonoBehaviour:
       - m_Target: {fileID: 1173732773}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
   onCVStamped:
     m_PersistentCalls:
@@ -5948,10 +5992,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayTransition
       objectReference: {fileID: 0}
-    - target: {fileID: 7383368511222460922, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8417169135107347001, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6119,3 +6159,4 @@ SceneRoots:
   - {fileID: 1703350495}
   - {fileID: 1715204340}
   - {fileID: 296789356}
+  - {fileID: 60033838}
