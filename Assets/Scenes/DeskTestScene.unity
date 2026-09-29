@@ -767,8 +767,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdaptiveGameManager
   AllJobRoles:
+  - {fileID: 11400000, guid: b047926cca6a4b449bb5400b4ffcdc4c, type: 2}
+  - {fileID: 11400000, guid: a88cbc2b2a681ba47b43f4477c5bfe65, type: 2}
   - {fileID: 11400000, guid: 2ac3c9e396926ee4c97f23d49ec34d7a, type: 2}
   - {fileID: 11400000, guid: fcd1c7bb07fab074da3dfdcf496a4181, type: 2}
+  - {fileID: 11400000, guid: 3b1e0c8a3ff6e2141ac80977604c7c2a, type: 2}
   - {fileID: 11400000, guid: 6c4bba191c3520a42ba4e16203b64442, type: 2}
   - {fileID: 11400000, guid: e9f002a3f61ddfc40999dd3eca3d9113, type: 2}
   - {fileID: 11400000, guid: 9945cce3abae0a940a1aad30d202ecea, type: 2}

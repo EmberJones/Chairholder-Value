@@ -114,7 +114,7 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
             MailManager.Instance.ReceiveMail(NewMail);
         }
 
-        MailMessage CurrentJobMail = new MailMessage("The Boss", "Todays' Open Position", "Today, we need you to find one suitable applicant for the newly opened role of " + CurrentRole.name + ". You got this!");
+        MailMessage CurrentJobMail = new MailMessage("The Boss", "Todays' Open Position", "Today, we need you to find one suitable applicant for the newly opened role of " + CurrentRole.name + ". The role needs " + CurrentRole.RoleDescription);
         MailManager.Instance.ReceiveMail(CurrentJobMail);                       // send an email to the player with the details for the roole they are filling today
 
         MailManager.Instance.OnMailRead += SpawnCVs;        // subscribe to the email reading
