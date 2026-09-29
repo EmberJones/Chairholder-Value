@@ -9,8 +9,8 @@ public class DayTransition : MonoBehaviour
     [SerializeField] private CanvasGroup group;      
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text subtitleText;
-    [SerializeField] private float fadeTime = 0.6f;
-    [SerializeField] private float holdTime = 1.6f;
+    [SerializeField] private float fadeTime = 0.9f;
+    [SerializeField] private float holdTime = 1.8f;
 
     public bool IsPlaying { get; private set; }
 
