@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVDisplay
   nameText: {fileID: 1920398864}
+  CriminalCode: {fileID: 1203823006}
   experienceText: {fileID: 992141183}
   educationText: {fileID: 1318501654}
   skillsText: {fileID: 518823217}
