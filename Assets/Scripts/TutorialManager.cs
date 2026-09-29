@@ -47,8 +47,8 @@ public class TutorialManager : MonoBehaviour, IRoundManager
     [SerializeField] private List<CVObject> allCVs = new();
 
     [Header("Events")]
-    public UnityEvent<int, JobRole> onDayStarted;     // hook the "Current Open Role" label here
-    public UnityEvent<bool> onComputerStateChanged;   // hook computer here
+    public UnityEvent<int, JobRole> onDayStarted;     
+    public UnityEvent<bool> onComputerStateChanged;  
     public UnityEvent<CVObject> onCVStamped;
     public UnityEvent<RoundSummary> onRoundComplete;
 
@@ -94,7 +94,7 @@ public class TutorialManager : MonoBehaviour, IRoundManager
         if (!_dayActive || _submitted || _nudgeShown || days.Count == 0 || Day.nudge == null) return;
         if (DialogueUI.Instance != null && DialogueUI.Instance.IsPlaying) return;
 
-        if (player != null && player.IsHoldingSomething) { NotifyProgress(); return; }   // holding = active
+        if (player != null && player.IsHoldingSomething) { NotifyProgress(); return; }   
 
         if (Time.time - _lastProgressTime >= Day.nudgeAfterSeconds)
         {
@@ -271,7 +271,6 @@ public class TutorialManager : MonoBehaviour, IRoundManager
         else Debug.LogWarning("[TutorialManager] No MetaProgressManager (are you testing this scene directly?).");
     }
 
-    // Helper: skips straight to the callback if there's no dialogue UI or sequence
     void PlayDialogue(DialogueSequence seq, System.Action onDone, Dictionary<string, string> tokens = null)
     {
         if (DialogueUI.Instance == null || seq == null) { onDone?.Invoke(); return; }
