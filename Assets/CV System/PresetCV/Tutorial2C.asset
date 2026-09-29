@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0618e7d404abb8e4ba50d67cc6dfa0db, type: 3}
+  m_Name: Tutorial2C
+  m_EditorClassIdentifier: Assembly-CSharp::PresetCV
+  CVName: Jeffrey Fring
+  Entries:
+  - {fileID: 11400000, guid: 25b0c71f2d9b53645b370c937125f79f, type: 2}
+  - {fileID: 11400000, guid: bf6f812bb83a97041a765a7d08b50b5c, type: 2}
+  - {fileID: 11400000, guid: bdbae0141414a724cbe2528c365ecce0, type: 2}
+  FormatProfile: {fileID: 11400000, guid: 83744f2316ebb46419622d23fbf97085, type: 2}
+  CriminalRecord:
+  - {fileID: 11400000, guid: 102e67dc40ecec349bffc730a0ea1b3d, type: 2}

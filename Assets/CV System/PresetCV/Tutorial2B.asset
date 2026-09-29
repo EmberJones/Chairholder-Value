@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0618e7d404abb8e4ba50d67cc6dfa0db, type: 3}
-  m_Name: Tutorial1A
+  m_Name: Tutorial2B
   m_EditorClassIdentifier: Assembly-CSharp::PresetCV
-  CVName: 'Sonja Ekeh '
+  CVName: Faith Dube
   Entries:
-  - {fileID: 11400000, guid: f87e16e396b18da42b81e9e61bc28070, type: 2}
-  - {fileID: 11400000, guid: 7c0e9ca502e360f48a41493a8785c9c2, type: 2}
-  - {fileID: 11400000, guid: 3059047fff8401a47983ee442f70d173, type: 2}
+  - {fileID: 11400000, guid: 0c2701f70e56bef4c89c9a05548de615, type: 2}
+  - {fileID: 11400000, guid: 25b0c71f2d9b53645b370c937125f79f, type: 2}
+  - {fileID: 11400000, guid: 5b3e57eb29a088e41936a0595402eb62, type: 2}
   FormatProfile: {fileID: 11400000, guid: 8c738950c4701a644a056a2b3d5bf36d, type: 2}
   CriminalRecord: []
