@@ -14,7 +14,7 @@ public class MetaProgressManager : MonoBehaviour
     [SerializeField] private string mainGameplaySceneName = "DeskTestScene";
     [SerializeField] private string winSceneName = "WinScene";
     [SerializeField] private string loseSceneName = "LoseScene";
-    [SerializeField] private string WorseSceneName = "WorsetScene";
+    [SerializeField] private string WorseSceneName = "WorstScene";
     [SerializeField] private string BestSceneName = "BestScene";
     [SerializeField] private string MenuSceneName = "MainMenu";
 
@@ -45,7 +45,7 @@ public class MetaProgressManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(TutorialDoneKey, 1);
         PlayerPrefs.Save();
-        SceneManager.LoadScene(mainGameplaySceneName);
+        PlayTransitionThenLoad(mainGameplaySceneName, "Day 3");
     }
 
     // GameManager calls this as soon as a round resolves - just updates the score, no scene load yet
@@ -60,6 +60,7 @@ public class MetaProgressManager : MonoBehaviour
     // Whoever owns the round-end dialogue/popup calls this once the player has dismissed it
     public void ProceedAfterRound()
     {
+        Debug.Log($"[MetaProgressManager] ProceedAfterRound called. MetaScore={MetaScore}, CurrentDay={CurrentDay}");
         if (MetaScore >= winScore) { PlayTransitionThenLoad(winSceneName, "Game Complete"); return; }
         if (MetaScore <= loseScore) { PlayTransitionThenLoad(loseSceneName, "Game Over"); return; }
 
@@ -67,9 +68,11 @@ public class MetaProgressManager : MonoBehaviour
         PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
     }
 
-    public void LoadWorstScene() => PlayTransitionThenLoad(WorseSceneName, "Game Over");
+    public void LoadWorstScene() => PlayTransitionThenLoad(WorseSceneName, $"Day {CurrentDay}");
     public void LoadMiddleScene() => PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
-    public void LoadBestScene() => PlayTransitionThenLoad(BestSceneName, "Game Complete");
+    public void LoadBestScene() => PlayTransitionThenLoad(BestSceneName, $"Day {CurrentDay}");
+    public void LoadWinScene() => PlayTransitionThenLoad(winSceneName, "Game Complete :D");
+    public void LoadLoseScene() => PlayTransitionThenLoad(loseSceneName, "Game Over :(");
     public void LoadMenu() => PlayTransitionThenLoad(MenuSceneName, null);
 
     void PlayTransitionThenLoad(string sceneName, string title, string subtitle = null)

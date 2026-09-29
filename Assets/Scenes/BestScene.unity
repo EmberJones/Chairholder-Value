@@ -4608,22 +4608,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: yes stamp
       objectReference: {fileID: 0}
-    - target: {fileID: 1663292727562275438, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008725194156320957, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008725194156320957, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2008725194156320957, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 2008725194156320957, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.41
@@ -4663,14 +4647,6 @@ PrefabInstance:
     - target: {fileID: 2008725194156320957, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8235799156123912289, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: m_Size.y
-      value: 0.04095449
-      objectReference: {fileID: 0}
-    - target: {fileID: 8235799156123912289, guid: e82b06e500dd28546889ce7c7369eb9e, type: 3}
-      propertyPath: m_Center.y
-      value: -0.000028178098
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

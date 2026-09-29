@@ -554,7 +554,7 @@ MonoBehaviour:
   mainGameplaySceneName: DeskTestScene
   winSceneName: WinScene
   loseSceneName: LoseScene
-  WorseSceneName: WorsetScene
+  WorseSceneName: WorstScene
   BestSceneName: BestScene
   MenuSceneName: MainMenu
   itGuyRole: {fileID: 11400000, guid: a0cafc30a8768164a9b132ecc007fc4d, type: 2}

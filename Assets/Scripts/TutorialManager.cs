@@ -201,7 +201,7 @@ public class TutorialManager : MonoBehaviour, IRoundManager
         {
             if (cv.Data == null) continue;
             CVScorer.Score(cv.Data, role);
-            Debug.Log($"[Tutorial] {cv.Data.CVName}: Content={cv.Data.ContentScore:F1} Format={cv.Data.FormatScore:F1} Final={cv.Data.FinalScore:F1}");
+            //Debug.Log($"[Tutorial] {cv.Data.CVName}: Content={cv.Data.ContentScore:F1} Format={cv.Data.FormatScore:F1} Final={cv.Data.FinalScore:F1}");
         }
     }
 
