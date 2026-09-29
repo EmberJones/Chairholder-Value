@@ -4927,8 +4927,8 @@ MonoBehaviour:
   defaultNameColour: {r: 0.039215688, g: 0.12156863, b: 0.039215688, a: 1}
   defaultTextColour: {r: 0.49803922, g: 1, b: 0.49803922, a: 1}
   defaultHintColour: {r: 0.2901961, g: 1, b: 0.2901961, a: 1}
-  sfxSource: {fileID: 1068881069}
-  bumpSound: {fileID: 8300000, guid: 31cbb42170cb27345abaef92d2ef1b82, type: 3}
+  sfxSource: {fileID: 0}
+  bumpSound: {fileID: 0}
   bumpVolume: 0.8
   bumpStrength: 14
   bumpDuration: 0.25
@@ -4944,15 +4944,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f14aa325d7d42804cbf1694d06b6591c, type: 3}
   - {fileID: 8300000, guid: 5d8dfceaba605324cb1a055681b9d30e, type: 3}
   - {fileID: 8300000, guid: f28537928624d794180a60aba0531f03, type: 3}
-  voiceVolume: 0.33
+  voiceVolume: 0.177
   soundEveryNLetters: 1
   defaultPitch: 1
   defaultPitchVariation: 0.12
   speakers:
   - speaker: Boss
-    pitch: 0
+    pitch: 0.782
     pitchVariation: 0.12
-    useCustomColours: 1
+    useCustomColours: 0
     frameColour: {r: 1, g: 0.2901961, b: 0.2901961, a: 1}
     nameColour: {r: 0.12156863, g: 0.039215688, b: 0.039215688, a: 1}
     textColour: {r: 1, g: 0.5019608, b: 0.5019608, a: 1}
@@ -5664,6 +5664,10 @@ PrefabInstance:
     - target: {fileID: 7383368511222460922, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
       propertyPath: m_Name
       value: DayTransition
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383368511222460922, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8417169135107347001, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
       propertyPath: m_Camera
