@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eee14a7e877354f8371fe457eb406d, type: 3}
+  m_Name: BackgroundCheckIntro
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
+  lines:
+  - speaker: Boss
+    text: Now I need you to do some background checks. When you read a CV, there
+      will be a code on there. Memorize it.
+  - speaker: Boss
+    text: 'Then click on the "Browse" button and type in the code to do a background
+      check. '
+  - speaker: Boss
+    text: 'Background checks tell you about an applicant criminal record, we don''t
+      want you to go hiring some ruffian! '

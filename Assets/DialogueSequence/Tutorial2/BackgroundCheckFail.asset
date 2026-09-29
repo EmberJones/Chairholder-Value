@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eee14a7e877354f8371fe457eb406d, type: 3}
+  m_Name: BackgroundCheckFail
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
+  lines:
+  - speaker: Boss
+    text: 'Terrible job, but I don''t have time to babysit you. Keep messing up and
+      you''ll be out on the street in no time. '
+  - speaker: Boss
+    text: 'Thats the end of your training for now. In the future, check your emails
+      on the computer for details on your next job. '

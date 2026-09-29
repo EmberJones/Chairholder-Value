@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eee14a7e877354f8371fe457eb406d, type: 3}
+  m_Name: TutorialIntro
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
+  lines:
+  - speaker: Boss
+    text: 'You''re gonna be looking through the CV''s I give you and picking the
+      best one for the job. '
+  - speaker: Boss
+    text: Whichever one fits the best, stamp it with that green stamp and then click
+      on the fax machine in the corner to send me your choice.
+  - speaker: Boss
+    text: 'Your first job is to hire someone to come fix our computers. '

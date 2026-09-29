@@ -3227,6 +3227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVDisplay
   nameText: {fileID: 771274337}
+  CriminalCode: {fileID: 0}
   experienceText: {fileID: 206649535}
   educationText: {fileID: 1814961503}
   skillsText: {fileID: 1056173952}
@@ -4541,25 +4542,25 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 56e9068da48629340ac301ebb0f010fb, type: 2}
     - {fileID: 11400000, guid: 7afe06a6a5dfa1a42abddc5205b8fd7b, type: 2}
     computerWorking: 0
-    intro: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
-    nudge: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
+    intro: {fileID: 11400000, guid: be67edc25c7908349994f6cea6afa899, type: 2}
+    nudge: {fileID: 11400000, guid: 15ab381189ab29241b5fde0968941960, type: 2}
     nudgeAfterSeconds: 80
-    feedbackSuccess: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
-    feedbackFailure: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
+    feedbackSuccess: {fileID: 11400000, guid: a23ef09f1a127444cbed10971ae2a7c0, type: 2}
+    feedbackFailure: {fileID: 11400000, guid: 263dff4f2bec63945af365f82445840b, type: 2}
     repeatOnFailure: 1
   - dayTitle: Day 2
-    daySubtitle: Background Check Tutorial
+    daySubtitle: 'Computer '
     role: {fileID: 11400000, guid: a0cafc30a8768164a9b132ecc007fc4d, type: 2}
     presetBatch:
     - {fileID: 11400000, guid: 76bd35a4a7609d3479f70207653ceea1, type: 2}
     - {fileID: 11400000, guid: 56e9068da48629340ac301ebb0f010fb, type: 2}
     - {fileID: 11400000, guid: 7afe06a6a5dfa1a42abddc5205b8fd7b, type: 2}
     computerWorking: 1
-    intro: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
-    nudge: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
+    intro: {fileID: 11400000, guid: c92de2f6f9364254bb9c34ddb9ace555, type: 2}
+    nudge: {fileID: 11400000, guid: 15ab381189ab29241b5fde0968941960, type: 2}
     nudgeAfterSeconds: 80
-    feedbackSuccess: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
-    feedbackFailure: {fileID: 11400000, guid: ecb3bc3e392b4b94bbabe66316f9640a, type: 2}
+    feedbackSuccess: {fileID: 11400000, guid: 80ad2b2abb6de24468d8a325bd63ebe9, type: 2}
+    feedbackFailure: {fileID: 11400000, guid: 6adf440f13b9c4442b1ac630fc0929c5, type: 2}
     repeatOnFailure: 0
   CVPrefab: {fileID: 1397300773956954726, guid: b215de9e17eb70f4b9c22c6a5d54527f, type: 3}
   CVSpawnPoints:
