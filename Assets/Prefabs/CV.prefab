@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 4374162238107496259}
   - component: {fileID: 2882472657418558199}
   - component: {fileID: 142536094749879643}
+  - component: {fileID: 1208510800954697400}
   m_Layer: 6
   m_Name: CV
   m_TagString: Untagged
@@ -317,6 +318,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1208510800954697400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397300773956954726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebed0fa177bef94b8c897cf826ad978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineColor: {r: 1, g: 0.9803835, b: 0.2216981, a: 1}
+  outlineWidth: 0.3
+  isFlatObject: 1
+  flatModePivotOffset: {x: 0, y: 0, z: 0}
+  depthBias: 0.002
 --- !u!1 &4439295625940328342
 GameObject:
   m_ObjectHideFlags: 0
