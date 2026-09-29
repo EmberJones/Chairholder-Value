@@ -171,6 +171,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ceiling (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -350,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVDisplay
   nameText: {fileID: 1920398864}
+  CriminalCode: {fileID: 1203823006}
   experienceText: {fileID: 992141183}
   educationText: {fileID: 1318501654}
   skillsText: {fileID: 518823217}
@@ -493,6 +502,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
       propertyPath: m_Name
       value: ceiling
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -949,6 +966,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
       propertyPath: m_Name
       value: ceiling (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2130,6 +2155,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ceiling (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2936,6 +2969,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
       propertyPath: m_Name
       value: ceiling (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3797,6 +3838,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
       propertyPath: m_Name
       value: ceiling (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041270684128441372, guid: 0eb8ff464f40e03439c295c3a213994a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
