@@ -17,8 +17,8 @@ MonoBehaviour:
     text: Now I need you to do some background checks. When you read a CV, there
       will be a code on there. Memorize it.
   - speaker: Boss
-    text: 'Then click on the "Browse" button and type in the code to do a background
-      check. '
+    text: 'Then click on the ''Browser'' on the computer and type in the code to
+      check their criminal record. '
   - speaker: Boss
-    text: 'Background checks tell you about an applicant criminal record, we don''t
-      want you to go hiring some ruffian! '
+    text: 'Make sure you check everyone for this, we don''t want you hiring someone
+      that might use their new position to commit crimes! '

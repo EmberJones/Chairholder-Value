@@ -15,6 +15,8 @@ public class PresetCV : ScriptableObject
     [Tooltip("Hidden record, only discoverable via the computer. Leave empty for a clean candidate.")]
     public List<CriminalRecordEntryDefinition> CriminalRecord = new List<CriminalRecordEntryDefinition>();
 
+    public string BackgroundCheckCode;
+
     public GeneratedCV ToGeneratedCV()
     {
         var cv = new GeneratedCV { CVName = CVName, FormatProfile = FormatProfile };

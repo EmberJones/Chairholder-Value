@@ -28,7 +28,7 @@ public class CVDisplay : MonoBehaviour
         if (data == null) return;
 
         SetText(nameText, data.CVName ?? "Name Unknown");
-        SetText(CriminalCode, data.BackgroundCheckCode ?? "Criminal Code Unknown");
+        SetText(CriminalCode, $"Ref: {data.BackgroundCheckCode}");
         SetText(experienceText, BuildCategory(data, EntryCategory.Experience, "No Experience listed."));
         SetText(educationText, BuildCategory(data, EntryCategory.Education, "No Education listed."));
         SetText(skillsText, BuildCategory(data, EntryCategory.Skill, "No Skills listed."));

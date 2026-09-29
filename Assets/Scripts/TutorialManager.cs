@@ -22,7 +22,7 @@ public class TutorialDay
     public DialogueSequence feedbackFailure;
 
     [Header("Rules")]
-    public bool repeatOnFailure = true;            // wrong pick replays this day instead of advancing
+    public bool repeatOnFailure = true;           
 }
 
 public class TutorialManager : MonoBehaviour, IRoundManager
