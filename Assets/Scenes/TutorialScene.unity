@@ -5940,11 +5940,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-<<<<<<< Updated upstream
-    - target: {fileID: 413793925734168309, guid: 228df18ec61367f42911361287aac33e, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-=======
     - target: {fileID: 728106121644892965, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: m_Layer
       value: 8
