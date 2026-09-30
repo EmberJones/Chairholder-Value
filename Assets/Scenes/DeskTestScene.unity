@@ -1409,7 +1409,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &838265365
 Transform:
@@ -3457,6 +3457,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 413793925734168309, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099465426531110743, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188052661228172064, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2124440266296483236, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 2313243843654700759, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: FocusPoint
       value: 
@@ -3469,13 +3485,65 @@ PrefabInstance:
       propertyPath: 'DisableWhileFocused.Array.data[0]'
       value: 
       objectReference: {fileID: 1669397158}
+    - target: {fileID: 3025947692887719814, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3467012585800889732, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: OnCursorInput.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1294932436}
+    - target: {fileID: 3730596764400449874, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803608169017439810, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869835966484161598, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058174214260352558, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040760208566398449, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371342366986521915, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6088634166649654214, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204710997239242617, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213478699422617087, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7236114250659276635, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8612747177348817715, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: m_Name
       value: 'Desk '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732939923491320566, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816499089979235610, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8992931169182923145, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: m_LocalPosition.x
