@@ -398,6 +398,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2432229589432871472, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4385566860831326342, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 214
@@ -441,6 +445,30 @@ PrefabInstance:
     - target: {fileID: 5306100438491240476, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
       propertyPath: m_Name
       value: Computer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112604075439424360, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_SelectionColor.a
+      value: 0.83137256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112604075439424360, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_SelectionColor.b
+      value: 0.49784848
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112604075439424360, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_SelectionColor.g
+      value: 0.9245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112604075439424360, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_SelectionColor.r
+      value: 0.31835172
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323292430510272065, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323292430510272065, guid: 005f78a70a9463d4387e6f343e9e818d, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
