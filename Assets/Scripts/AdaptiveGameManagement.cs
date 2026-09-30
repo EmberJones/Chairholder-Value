@@ -186,6 +186,7 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
                 // load upper scene
                 break;
             case CurrentLevel.Upper:
+                MetaProgressManager.Instance.LoadWinScene();
                 // go to the credits
                 break;
         }
@@ -215,6 +216,7 @@ public class AdaptiveGameManager : MonoBehaviour, IRoundManager
         switch (ActiveLevel)
         {
             case CurrentLevel.Lower:
+                MetaProgressManager.Instance.LoadLoseScene();
                 // load the failure scene
                 break;
             case CurrentLevel.Middle:
