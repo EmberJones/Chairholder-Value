@@ -1745,8 +1745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e386defa2efeb4792ebc040a6bc8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVDetailUI
-  Panel: {fileID: 0}
-  Display: {fileID: 0}
+  Panel: {fileID: 79450003}
+  Display: {fileID: 1656330708}
 --- !u!4 &1235564356
 Transform:
   m_ObjectHideFlags: 0
