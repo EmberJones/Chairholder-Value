@@ -3662,6 +3662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIClickSounds
   clickSound: {fileID: 8300000, guid: 4ef917136de8df043a22600a16fd9658, type: 3}
   volume: 0.1
+  pitchVariation: 0.05
+  rescanInterval: 10
 --- !u!1 &3495170187833032225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,7 +4401,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -6244,7 +6246,7 @@ MonoBehaviour:
       m_Calls: []
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
+  m_SelectionColor: {r: 0.31835172, g: 0.9245283, b: 0.49784848, a: 0.83137256}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
