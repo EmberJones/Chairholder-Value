@@ -3041,6 +3041,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &1467899049
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467899042}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3119860279151204719, guid: bfc9b73d9d3799d4bb19d4bd656ef886, type: 3}
 --- !u!1 &1507180516
 GameObject:
   m_ObjectHideFlags: 0
@@ -4267,6 +4289,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8118246997362106358, guid: bfc9b73d9d3799d4bb19d4bd656ef886, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1467899046}
+    - targetCorrespondingSourceObject: {fileID: -8118246997362106358, guid: bfc9b73d9d3799d4bb19d4bd656ef886, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1467899049}
     - targetCorrespondingSourceObject: {fileID: 2774199565198127643, guid: bfc9b73d9d3799d4bb19d4bd656ef886, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1885364078}
@@ -4686,7 +4711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolume
   mode: 1
-  size: {x: 321.5513, y: 60.725563, z: 316.71783}
+  size: {x: 321.5513, y: 60.72557, z: 316.71783}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -4726,7 +4751,7 @@ Transform:
   m_GameObject: {fileID: 1948853311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7282715, y: 31.385727, z: -49.701843}
+  m_LocalPosition: {x: -6.7282715, y: 31.385733, z: -49.701843}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
