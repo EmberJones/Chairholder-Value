@@ -103,12 +103,10 @@ public class SettingsManager : MonoBehaviour
     // --------------------
     public void SetBrightness(float value)
     {
-        brightness = value;
+        brightness = Mathf.Clamp(value, 0.2f, 1f);
 
         Color temp = BrightnessImage.color;
-
-        temp.a = 1 - brightness;        // subtracting from one as the slider goes from 0.2 to 1, but 1 opacity means you wouldn't see anything through the image
-
+        temp.a = 1f - brightness;   // brightness 1 = fully transparent overlay, 0.2 = 80% opaque
         BrightnessImage.color = temp;
 
         SaveSettings();
@@ -120,7 +118,7 @@ public class SettingsManager : MonoBehaviour
     // --------------------
     public void SetVolume(float value)
     {
-        volume = value;
+        volume = Mathf.Clamp01(value);
         AudioListener.volume = volume;
 
         SaveSettings();
