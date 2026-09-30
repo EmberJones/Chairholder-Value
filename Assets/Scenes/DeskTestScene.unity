@@ -3461,6 +3461,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 728106121644892965, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1099465426531110743, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -3533,6 +3537,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8036127300858774946, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290368827641314004, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: rejectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fb741e07b948e784fb4a2803444acc6f, type: 3}
     - target: {fileID: 8612747177348817715, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: m_Name
       value: 'Desk '

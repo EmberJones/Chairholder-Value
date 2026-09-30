@@ -44,16 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc4269b7d703b74c9f925d4b2bff40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  draggableLayer:
+  stampLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 8
   cvLayer:
     serializedVersion: 2
     m_Bits: 64
-  dragZ: -2
-  smoothSpeed: 20
-  pickupScaleMultiplier: 1.05
-  doubleClickThreshold: 0.35
-  readModeZ: -5
-  readModeSpeed: 8
-  readModeScreenCenter: {x: 0.5, y: 0.55}
+  faxLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  propLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  deskHeight: 12.75
+  dragSpring: 15
+  maxDragSpeed: 20
+  dragLift: 0.5
+  doubleClickThreshold: 0.55
