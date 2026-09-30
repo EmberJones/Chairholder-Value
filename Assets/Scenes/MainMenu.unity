@@ -552,8 +552,8 @@ MonoBehaviour:
   loseScore: -5
   tutorialSceneName: TutorialScene
   mainGameplaySceneName: DeskTestScene
-  winSceneName: WinScene
-  loseSceneName: LoseScene
+  winSceneName: MainMenu
+  loseSceneName: MainMenu
   WorseSceneName: WorstScene
   BestSceneName: BestScene
   MenuSceneName: MainMenu
@@ -1035,6 +1035,10 @@ PrefabInstance:
     - target: {fileID: 1973892866761411771, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2061028941373142654, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2261029994202283732, guid: f18aada0002f7f34687f106ab52472aa, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1543,6 +1547,10 @@ PrefabInstance:
     - target: {fileID: 7273778741822598412, guid: 7f5f47228bb864a469899cbc85904980, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012877263981284531, guid: 7f5f47228bb864a469899cbc85904980, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

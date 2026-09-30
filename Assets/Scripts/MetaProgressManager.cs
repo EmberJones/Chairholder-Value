@@ -80,12 +80,12 @@ public class MetaProgressManager : MonoBehaviour
         if (DayTransition.Instance != null)
         {
             DayTransition.Instance.Play(title, subtitle,
-                onCovered: () => SceneManager.LoadScene(sceneName));
+                onCovered: () => SceneManager.LoadSceneAsync(sceneName));
         }
         else
         {
             Debug.LogWarning("[MetaProgressManager] No DayTransition in this scene - loading without a cover fade.");
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadSceneAsync(sceneName);
         }
     }
 }
