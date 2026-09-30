@@ -2978,7 +2978,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -4468,7 +4468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolume
   mode: 1
-  size: {x: 321.5513, y: 13.467918, z: 316.71783}
+  size: {x: 321.55127, y: 13.467918, z: 316.71783}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -4508,7 +4508,7 @@ Transform:
   m_GameObject: {fileID: 1948853311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7282715, y: 55.01455, z: -49.701843}
+  m_LocalPosition: {x: -6.7282867, y: 55.01455, z: -49.701843}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4723,8 +4723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e386defa2efeb4792ebc040a6bc8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CVDetailUI
-  Panel: {fileID: 0}
-  Display: {fileID: 0}
+  Panel: {fileID: 1578430429}
+  Display: {fileID: 916999962}
 --- !u!4 &2069127925
 Transform:
   m_ObjectHideFlags: 0
