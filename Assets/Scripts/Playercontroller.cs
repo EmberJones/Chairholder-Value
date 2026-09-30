@@ -96,8 +96,7 @@ public class PlayerController : MonoBehaviour
                     if (cv != null && stamp != null)
                     {
                         Vector3 stampPos = _held.transform.position;
-                        Vector3 decalPoint = new Vector3(stampPos.x, cv.transform.position.y, stampPos.z);   
-                        cv.ApplyStamp(stamp.StampType, decalPoint);
+                        cv.ApplyStamp(stamp.StampType, _held.transform.position);
                         stamp.PlayStampAnimation();
                         Deselect();
                         return;
