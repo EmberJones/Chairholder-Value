@@ -44,7 +44,9 @@ public class MetaProgressManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(TutorialDoneKey, 1);
         PlayerPrefs.Save();
-        PlayTransitionThenLoad(mainGameplaySceneName, "Day 3");
+        CurrentDay = 3;
+        Debug.Log($"[CompleteTutorial] CurrentDay={CurrentDay}");
+        PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
     }
 
     // GameManager calls this as soon as a round resolves - just updates the score, no scene load yet
@@ -64,6 +66,8 @@ public class MetaProgressManager : MonoBehaviour
         if (MetaScore <= loseScore) { PlayTransitionThenLoad(loseSceneName, "Game Over"); return; }
 
         CurrentDay++;
+        Debug.Log($"[ProceedAfterRound] CurrentDay={CurrentDay}");
+
         PlayTransitionThenLoad(mainGameplaySceneName, $"Day {CurrentDay}");
     }
 
@@ -76,6 +80,8 @@ public class MetaProgressManager : MonoBehaviour
 
     void PlayTransitionThenLoad(string sceneName, string title, string subtitle = null)
     {
+        CurrentDay++;
+        Debug.Log($"[PlayTransitionThenLoad] PlayTransitionThenLoad called with sceneName={sceneName}, title={title}, subtitle={subtitle}");
         if (DayTransition.Instance != null)
         {
             DayTransition.Instance.Play(title, subtitle,
@@ -83,7 +89,7 @@ public class MetaProgressManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[MetaProgressManager] No DayTransition in this scene - loading without a cover fade.");
+            Debug.LogWarning("[PlayTransitionThenLoad] No DayTransition in this scene - loading without a cover fade.");
             SceneManager.LoadSceneAsync(sceneName);
         }
     }
