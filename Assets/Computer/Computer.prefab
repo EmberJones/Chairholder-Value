@@ -2395,7 +2395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3065078208700342475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6676,7 +6676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComputerSettings
   VolumeDisplay: {fileID: 2779559124026145206}
-  BrightnessDisplay: {fileID: 4013194843062628532}
+  BrightnessDisplay: {fileID: 5059584817300570807}
 --- !u!1 &7977009703994220288
 GameObject:
   m_ObjectHideFlags: 0
