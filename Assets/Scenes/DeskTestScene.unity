@@ -3478,6 +3478,10 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2313243843654700759, guid: 228df18ec61367f42911361287aac33e, type: 3}
+      propertyPath: ExitKey
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313243843654700759, guid: 228df18ec61367f42911361287aac33e, type: 3}
       propertyPath: FocusPoint
       value: 
       objectReference: {fileID: 1018344796}

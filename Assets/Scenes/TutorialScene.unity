@@ -5665,10 +5665,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayTransition
       objectReference: {fileID: 0}
-    - target: {fileID: 7383368511222460922, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8417169135107347001, guid: f9cabfe017d26e9449d31f5a0e1e3014, type: 3}
       propertyPath: m_Camera
       value: 

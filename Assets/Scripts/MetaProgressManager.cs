@@ -37,8 +37,7 @@ public class MetaProgressManager : MonoBehaviour
 
     public void StartGame()
     {
-        bool tutorialDone = PlayerPrefs.GetInt(TutorialDoneKey, 0) == 0;
-        SceneManager.LoadScene(tutorialDone ? mainGameplaySceneName : tutorialSceneName);
+        SceneManager.LoadScene(tutorialSceneName);
     }
 
     public void CompleteTutorial()

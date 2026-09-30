@@ -14,7 +14,7 @@ public class ComputerInputResult : MonoBehaviour
     {
         Raycaster = GetComponent<GraphicRaycaster>();
 
-        Raycaster.enabled = false;
+        Raycaster.enabled = true;
     }
 
     // Update is called once per frame
