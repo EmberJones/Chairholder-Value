@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolume
   mode: 1
-  size: {x: 321.55127, y: 61.339897, z: 316.71783}
+  size: {x: 321.5513, y: 61.339897, z: 316.71783}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -995,7 +995,7 @@ Transform:
   m_GameObject: {fileID: 475119731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7282867, y: 31.078566, z: -49.701843}
+  m_LocalPosition: {x: -6.7282715, y: 31.078566, z: -49.701843}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   ScreenLayer:
     serializedVersion: 2
     m_Bits: 1024
-  ExitKey: 27
+  ExitKey: 9
   DisableWhileFocused:
   - {fileID: 469496282}
 --- !u!64 &819583083
