@@ -10,12 +10,13 @@ public class DraggableObject : MonoBehaviour
     protected virtual void Awake()
     {
         Rb = GetComponent<Rigidbody>();
+        Rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;   
+        Rb.interpolation = RigidbodyInterpolation.Interpolate;                 
         _origin = transform.position;
     }
 
     protected virtual void FixedUpdate()
     {
-
     }
 
     protected virtual void OnPickedUp() { }

@@ -5,7 +5,8 @@ public class PlayerController : MonoBehaviour
     [Header("Layers")]
     [SerializeField] private LayerMask stampLayer;
     [SerializeField] private LayerMask cvLayer;
-    [SerializeField] private LayerMask faxLayer;
+    [SerializeField] private LayerMask faxLayer; 
+    [SerializeField] private LayerMask propLayer;
 
     [Header("Drag Settings")]
     [SerializeField] private float deskHeight = 0f;
@@ -153,6 +154,11 @@ public class PlayerController : MonoBehaviour
             if (((1 << layer) & stampLayer) != 0)
             {
                 SelectObject(hitObject, isStamp: true);
+                return;
+            }
+            if (((1 << layer) & propLayer) != 0)
+            {
+                SelectObject(hitObject, isStamp: false);
                 return;
             }
         }
