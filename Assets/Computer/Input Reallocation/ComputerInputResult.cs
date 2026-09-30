@@ -14,29 +14,44 @@ public class ComputerInputResult : MonoBehaviour
     {
         Raycaster = GetComponent<GraphicRaycaster>();
 
-        Raycaster.enabled = false;
+        Raycaster.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnCursorInput(Vector2 NormPos)
     {
-        Vector3 CanvasSpacePosition = new Vector3(CanvasTransform.sizeDelta.x * NormPos.x, CanvasTransform.sizeDelta.y * NormPos.y, 0f);
+        Canvas canvas = CanvasTransform.GetComponentInParent<Canvas>();
+        Camera targetCamera = canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
 
-        PointerEventData MouseEvent = new PointerEventData(EventSystem.current);
-        MouseEvent.position = CanvasSpacePosition;
+        // 1. Convert normalized UV (0..1) to Canvas Local Position centered on Pivot
+        Vector2 canvasSize = CanvasTransform.rect.size;
+        Vector2 localPoint = new Vector2(
+            (NormPos.x - CanvasTransform.pivot.x) * canvasSize.x,
+            (NormPos.y - CanvasTransform.pivot.y) * canvasSize.y
+        );
+
+        // 2. Convert Canvas Local Position -> World Position -> Screen Pixel Position
+        Vector3 worldPoint = CanvasTransform.TransformPoint(localPoint);
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(targetCamera, worldPoint);
+
+        // 3. Populate PointerEventData with valid Screen Coordinates
+        PointerEventData MouseEvent = new PointerEventData(EventSystem.current)
+        {
+            position = screenPoint
+        };
+
         List<RaycastResult> Results = new List<RaycastResult>();
-
         Raycaster.Raycast(MouseEvent, Results);
+
         bool SendMouseDown = Input.GetMouseButtonDown(0);
         bool SendMouseUp = Input.GetMouseButtonUp(0);
 
-
-        foreach (var result in Results)         // the canvas raycater, hits the button, it's label, the taskbar and the background behind it
+        foreach (var result in Results)
         {
             if (SendMouseDown)
             {
